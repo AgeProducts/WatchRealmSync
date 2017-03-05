@@ -1,0 +1,816 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		424754F91E54D95B008CAD9C /* WatchIPhoneConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5CA1E5163460003FE1C /* WatchIPhoneConnect.swift */; };
+		424754FA1E54D95C008CAD9C /* WatchIPhoneConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5CA1E5163460003FE1C /* WatchIPhoneConnect.swift */; };
+		424754FB1E54DC11008CAD9C /* Common2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5C21E5163460003FE1C /* Common2.swift */; };
+		424754FC1E54DC12008CAD9C /* Common2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5C21E5163460003FE1C /* Common2.swift */; };
+		424E64491E5620FC00E44B4B /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E64481E5620FC00E44B4B /* ExtensionDelegate.swift */; };
+		42883D511E52857900EC4EE3 /* SupportLibs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42883D501E52857900EC4EE3 /* SupportLibs.swift */; };
+		42883D521E52857900EC4EE3 /* SupportLibs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42883D501E52857900EC4EE3 /* SupportLibs.swift */; };
+		42D05FB21E5175B7007754D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D05FB11E5175B7007754D8 /* ViewController.swift */; };
+		42D05FB41E5176D0007754D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42D05FB31E5176D0007754D8 /* Main.storyboard */; };
+		6F7810B79AAD25DBF7984977 /* Pods_WatchRealmSyncWatchApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3897BDFB569A331348D190E6 /* Pods_WatchRealmSyncWatchApp.framework */; };
+		A2BAD5691E515E210003FE1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5681E515E210003FE1C /* AppDelegate.swift */; };
+		A2BAD5721E515E210003FE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2BAD5711E515E210003FE1C /* Assets.xcassets */; };
+		A2BAD5751E515E210003FE1C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2BAD5731E515E210003FE1C /* LaunchScreen.storyboard */; };
+		A2BAD5841E515E3E0003FE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2BAD5831E515E3E0003FE1C /* Assets.xcassets */; };
+		A2BAD58B1E515E3F0003FE1C /* WatchRealmSyncWatchApp Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A2BAD58A1E515E3E0003FE1C /* WatchRealmSyncWatchApp Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A2BAD5901E515E3F0003FE1C /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD58F1E515E3F0003FE1C /* InterfaceController.swift */; };
+		A2BAD5941E515E3F0003FE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2BAD5931E515E3F0003FE1C /* Assets.xcassets */; };
+		A2BAD5981E515E3F0003FE1C /* WatchRealmSyncWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = A2BAD57E1E515E3E0003FE1C /* WatchRealmSyncWatchApp.app */; };
+		A2BAD5BF1E5162130003FE1C /* MasterTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5BE1E5162130003FE1C /* MasterTableRowController.swift */; };
+		A2BAD5C11E5162340003FE1C /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2BAD5C01E5162340003FE1C /* Interface.storyboard */; };
+		A2BAD5D31E5163460003FE1C /* Lap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5C51E5163460003FE1C /* Lap.swift */; };
+		A2BAD5D41E5163460003FE1C /* Lap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5C51E5163460003FE1C /* Lap.swift */; };
+		A2BAD5D91E5163460003FE1C /* SysDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5C91E5163460003FE1C /* SysDefines.swift */; };
+		A2BAD5DA1E5163460003FE1C /* SysDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5C91E5163460003FE1C /* SysDefines.swift */; };
+		A6C913F39A307BCAD3CDC3C6 /* Pods_WatchRealmSyncWatchApp_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC901CDAFCE147358903C2A /* Pods_WatchRealmSyncWatchApp_Extension.framework */; };
+		CACFC9F31C52E2B06373DD87 /* Pods_WatchRealmSync.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E2FF9ECA074580D98DEB07 /* Pods_WatchRealmSync.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A2BAD58C1E515E3F0003FE1C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A2BAD55D1E515E210003FE1C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A2BAD5891E515E3E0003FE1C;
+			remoteInfo = "WatchRealmSyncWatchApp Extension";
+		};
+		A2BAD5961E515E3F0003FE1C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A2BAD55D1E515E210003FE1C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A2BAD57D1E515E3E0003FE1C;
+			remoteInfo = WatchRealmSyncWatchApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A2BAD59C1E515E3F0003FE1C /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A2BAD58B1E515E3F0003FE1C /* WatchRealmSyncWatchApp Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A2BAD5A01E515E3F0003FE1C /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				A2BAD5981E515E3F0003FE1C /* WatchRealmSyncWatchApp.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		09B7B2CE469E3B6EB0337843 /* Pods-WatchRealmSync.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatchRealmSync.release.xcconfig"; path = "Pods/Target Support Files/Pods-WatchRealmSync/Pods-WatchRealmSync.release.xcconfig"; sourceTree = "<group>"; };
+		10F09F5C6C8EA01A622B64F0 /* Pods-WatchRealmSync.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatchRealmSync.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WatchRealmSync/Pods-WatchRealmSync.debug.xcconfig"; sourceTree = "<group>"; };
+		13E2FF9ECA074580D98DEB07 /* Pods_WatchRealmSync.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WatchRealmSync.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AC901CDAFCE147358903C2A /* Pods_WatchRealmSyncWatchApp_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WatchRealmSyncWatchApp_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		22006D404F2AF4E330E51F2F /* Pods-WatchRealmSyncWatchApp Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatchRealmSyncWatchApp Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-WatchRealmSyncWatchApp Extension/Pods-WatchRealmSyncWatchApp Extension.release.xcconfig"; sourceTree = "<group>"; };
+		3897BDFB569A331348D190E6 /* Pods_WatchRealmSyncWatchApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WatchRealmSyncWatchApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		424E64481E5620FC00E44B4B /* ExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		42883D501E52857900EC4EE3 /* SupportLibs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SupportLibs.swift; path = "Share module/SupportLibs.swift"; sourceTree = "<group>"; };
+		42D05FB11E5175B7007754D8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		42D05FB31E5176D0007754D8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		6DED9D65A6E8E852CD0B55D3 /* Pods-WatchRealmSyncWatchApp Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatchRealmSyncWatchApp Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WatchRealmSyncWatchApp Extension/Pods-WatchRealmSyncWatchApp Extension.debug.xcconfig"; sourceTree = "<group>"; };
+		9093050501E49575F01F4C3A /* Pods-WatchRealmSyncWatchApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatchRealmSyncWatchApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-WatchRealmSyncWatchApp/Pods-WatchRealmSyncWatchApp.release.xcconfig"; sourceTree = "<group>"; };
+		A2BAD5651E515E210003FE1C /* WatchRealmSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchRealmSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2BAD5681E515E210003FE1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A2BAD5711E515E210003FE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A2BAD5741E515E210003FE1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A2BAD5761E515E210003FE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A2BAD57E1E515E3E0003FE1C /* WatchRealmSyncWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchRealmSyncWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2BAD5831E515E3E0003FE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A2BAD5851E515E3E0003FE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A2BAD58A1E515E3E0003FE1C /* WatchRealmSyncWatchApp Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "WatchRealmSyncWatchApp Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2BAD58F1E515E3F0003FE1C /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		A2BAD5931E515E3F0003FE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A2BAD5951E515E3F0003FE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A2BAD5BE1E5162130003FE1C /* MasterTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterTableRowController.swift; sourceTree = "<group>"; };
+		A2BAD5C01E5162340003FE1C /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
+		A2BAD5C21E5163460003FE1C /* Common2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common2.swift; path = "Share module/Common2.swift"; sourceTree = "<group>"; };
+		A2BAD5C51E5163460003FE1C /* Lap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lap.swift; path = "Share module/Lap.swift"; sourceTree = "<group>"; };
+		A2BAD5C91E5163460003FE1C /* SysDefines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SysDefines.swift; path = "Share module/SysDefines.swift"; sourceTree = "<group>"; };
+		A2BAD5CA1E5163460003FE1C /* WatchIPhoneConnect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchIPhoneConnect.swift; path = "Share module/WatchIPhoneConnect.swift"; sourceTree = "<group>"; };
+		E2AD242411A3FA1E6742127B /* Pods-WatchRealmSyncWatchApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatchRealmSyncWatchApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WatchRealmSyncWatchApp/Pods-WatchRealmSyncWatchApp.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		23CD8765E773E3EC20BBC38E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F7810B79AAD25DBF7984977 /* Pods_WatchRealmSyncWatchApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A2BAD5621E515E210003FE1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CACFC9F31C52E2B06373DD87 /* Pods_WatchRealmSync.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A2BAD5871E515E3E0003FE1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A6C913F39A307BCAD3CDC3C6 /* Pods_WatchRealmSyncWatchApp_Extension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		25711D38A18B6B63DD18B85D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				10F09F5C6C8EA01A622B64F0 /* Pods-WatchRealmSync.debug.xcconfig */,
+				09B7B2CE469E3B6EB0337843 /* Pods-WatchRealmSync.release.xcconfig */,
+				E2AD242411A3FA1E6742127B /* Pods-WatchRealmSyncWatchApp.debug.xcconfig */,
+				9093050501E49575F01F4C3A /* Pods-WatchRealmSyncWatchApp.release.xcconfig */,
+				6DED9D65A6E8E852CD0B55D3 /* Pods-WatchRealmSyncWatchApp Extension.debug.xcconfig */,
+				22006D404F2AF4E330E51F2F /* Pods-WatchRealmSyncWatchApp Extension.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A2BAD55C1E515E210003FE1C = {
+			isa = PBXGroup;
+			children = (
+				A2BAD5A11E515E4C0003FE1C /* Share module */,
+				A2BAD5671E515E210003FE1C /* WatchRealmSync */,
+				A2BAD57F1E515E3E0003FE1C /* WatchRealmSyncWatchApp */,
+				A2BAD58E1E515E3F0003FE1C /* WatchRealmSyncWatchApp Extension */,
+				A2BAD5661E515E210003FE1C /* Products */,
+				25711D38A18B6B63DD18B85D /* Pods */,
+				F9EE2D485D8A4B20A77B407A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		A2BAD5661E515E210003FE1C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A2BAD5651E515E210003FE1C /* WatchRealmSync.app */,
+				A2BAD57E1E515E3E0003FE1C /* WatchRealmSyncWatchApp.app */,
+				A2BAD58A1E515E3E0003FE1C /* WatchRealmSyncWatchApp Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A2BAD5671E515E210003FE1C /* WatchRealmSync */ = {
+			isa = PBXGroup;
+			children = (
+				A2BAD5681E515E210003FE1C /* AppDelegate.swift */,
+				42D05FB11E5175B7007754D8 /* ViewController.swift */,
+				42D05FB31E5176D0007754D8 /* Main.storyboard */,
+				A2BAD5711E515E210003FE1C /* Assets.xcassets */,
+				A2BAD5731E515E210003FE1C /* LaunchScreen.storyboard */,
+				A2BAD5761E515E210003FE1C /* Info.plist */,
+			);
+			path = WatchRealmSync;
+			sourceTree = "<group>";
+		};
+		A2BAD57F1E515E3E0003FE1C /* WatchRealmSyncWatchApp */ = {
+			isa = PBXGroup;
+			children = (
+				A2BAD5C01E5162340003FE1C /* Interface.storyboard */,
+				A2BAD5831E515E3E0003FE1C /* Assets.xcassets */,
+				A2BAD5851E515E3E0003FE1C /* Info.plist */,
+			);
+			path = WatchRealmSyncWatchApp;
+			sourceTree = "<group>";
+		};
+		A2BAD58E1E515E3F0003FE1C /* WatchRealmSyncWatchApp Extension */ = {
+			isa = PBXGroup;
+			children = (
+				424E64481E5620FC00E44B4B /* ExtensionDelegate.swift */,
+				A2BAD58F1E515E3F0003FE1C /* InterfaceController.swift */,
+				A2BAD5BE1E5162130003FE1C /* MasterTableRowController.swift */,
+				A2BAD5931E515E3F0003FE1C /* Assets.xcassets */,
+				A2BAD5951E515E3F0003FE1C /* Info.plist */,
+			);
+			path = "WatchRealmSyncWatchApp Extension";
+			sourceTree = "<group>";
+		};
+		A2BAD5A11E515E4C0003FE1C /* Share module */ = {
+			isa = PBXGroup;
+			children = (
+				A2BAD5C21E5163460003FE1C /* Common2.swift */,
+				42883D501E52857900EC4EE3 /* SupportLibs.swift */,
+				A2BAD5C51E5163460003FE1C /* Lap.swift */,
+				A2BAD5C91E5163460003FE1C /* SysDefines.swift */,
+				A2BAD5CA1E5163460003FE1C /* WatchIPhoneConnect.swift */,
+			);
+			name = "Share module";
+			sourceTree = "<group>";
+		};
+		F9EE2D485D8A4B20A77B407A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				13E2FF9ECA074580D98DEB07 /* Pods_WatchRealmSync.framework */,
+				3897BDFB569A331348D190E6 /* Pods_WatchRealmSyncWatchApp.framework */,
+				1AC901CDAFCE147358903C2A /* Pods_WatchRealmSyncWatchApp_Extension.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A2BAD5641E515E210003FE1C /* WatchRealmSync */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A2BAD5791E515E210003FE1C /* Build configuration list for PBXNativeTarget "WatchRealmSync" */;
+			buildPhases = (
+				D32306F57FA34993F6CCFD35 /* [CP] Check Pods Manifest.lock */,
+				A2BAD5611E515E210003FE1C /* Sources */,
+				A2BAD5621E515E210003FE1C /* Frameworks */,
+				A2BAD5631E515E210003FE1C /* Resources */,
+				A2BAD5A01E515E3F0003FE1C /* Embed Watch Content */,
+				20A12FD361BEA2D4DB5A5656 /* [CP] Embed Pods Frameworks */,
+				BD05A71E7167C9F5E0E2DF2F /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A2BAD5971E515E3F0003FE1C /* PBXTargetDependency */,
+			);
+			name = WatchRealmSync;
+			productName = WatchRealmSync;
+			productReference = A2BAD5651E515E210003FE1C /* WatchRealmSync.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A2BAD57D1E515E3E0003FE1C /* WatchRealmSyncWatchApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A2BAD59D1E515E3F0003FE1C /* Build configuration list for PBXNativeTarget "WatchRealmSyncWatchApp" */;
+			buildPhases = (
+				0D82CFE8A554058FB75FF543 /* [CP] Check Pods Manifest.lock */,
+				A2BAD57C1E515E3E0003FE1C /* Resources */,
+				A2BAD59C1E515E3F0003FE1C /* Embed App Extensions */,
+				23CD8765E773E3EC20BBC38E /* Frameworks */,
+				836E12BA1258A9CCE2A9C566 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A2BAD58D1E515E3F0003FE1C /* PBXTargetDependency */,
+			);
+			name = WatchRealmSyncWatchApp;
+			productName = WatchRealmSyncWatchApp;
+			productReference = A2BAD57E1E515E3E0003FE1C /* WatchRealmSyncWatchApp.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		A2BAD5891E515E3E0003FE1C /* WatchRealmSyncWatchApp Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A2BAD5991E515E3F0003FE1C /* Build configuration list for PBXNativeTarget "WatchRealmSyncWatchApp Extension" */;
+			buildPhases = (
+				BBA886589A4965BFD155CB78 /* [CP] Check Pods Manifest.lock */,
+				A2BAD5861E515E3E0003FE1C /* Sources */,
+				A2BAD5871E515E3E0003FE1C /* Frameworks */,
+				A2BAD5881E515E3E0003FE1C /* Resources */,
+				58321498E778BF52FCEF27F8 /* [CP] Embed Pods Frameworks */,
+				2718EE1E470F82CC4B0FF390 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "WatchRealmSyncWatchApp Extension";
+			productName = "WatchRealmSyncWatchApp Extension";
+			productReference = A2BAD58A1E515E3E0003FE1C /* WatchRealmSyncWatchApp Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A2BAD55D1E515E210003FE1C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Takuji Hori";
+				TargetAttributes = {
+					A2BAD5641E515E210003FE1C = {
+						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
+					};
+					A2BAD57D1E515E3E0003FE1C = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+					A2BAD5891E515E3E0003FE1C = {
+						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes.watchos.extension = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = A2BAD5601E515E210003FE1C /* Build configuration list for PBXProject "WatchRealmSync" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A2BAD55C1E515E210003FE1C;
+			productRefGroup = A2BAD5661E515E210003FE1C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A2BAD5641E515E210003FE1C /* WatchRealmSync */,
+				A2BAD57D1E515E3E0003FE1C /* WatchRealmSyncWatchApp */,
+				A2BAD5891E515E3E0003FE1C /* WatchRealmSyncWatchApp Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A2BAD5631E515E210003FE1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2BAD5751E515E210003FE1C /* LaunchScreen.storyboard in Resources */,
+				A2BAD5721E515E210003FE1C /* Assets.xcassets in Resources */,
+				42D05FB41E5176D0007754D8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A2BAD57C1E515E3E0003FE1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2BAD5841E515E3E0003FE1C /* Assets.xcassets in Resources */,
+				A2BAD5C11E5162340003FE1C /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A2BAD5881E515E3E0003FE1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2BAD5941E515E3F0003FE1C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0D82CFE8A554058FB75FF543 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		20A12FD361BEA2D4DB5A5656 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WatchRealmSync/Pods-WatchRealmSync-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2718EE1E470F82CC4B0FF390 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WatchRealmSyncWatchApp Extension/Pods-WatchRealmSyncWatchApp Extension-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		58321498E778BF52FCEF27F8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WatchRealmSyncWatchApp Extension/Pods-WatchRealmSyncWatchApp Extension-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		836E12BA1258A9CCE2A9C566 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WatchRealmSyncWatchApp/Pods-WatchRealmSyncWatchApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BBA886589A4965BFD155CB78 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BD05A71E7167C9F5E0E2DF2F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WatchRealmSync/Pods-WatchRealmSync-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D32306F57FA34993F6CCFD35 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A2BAD5611E515E210003FE1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2BAD5D31E5163460003FE1C /* Lap.swift in Sources */,
+				424754FB1E54DC11008CAD9C /* Common2.swift in Sources */,
+				42D05FB21E5175B7007754D8 /* ViewController.swift in Sources */,
+				424754F91E54D95B008CAD9C /* WatchIPhoneConnect.swift in Sources */,
+				A2BAD5D91E5163460003FE1C /* SysDefines.swift in Sources */,
+				A2BAD5691E515E210003FE1C /* AppDelegate.swift in Sources */,
+				42883D511E52857900EC4EE3 /* SupportLibs.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A2BAD5861E515E3E0003FE1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2BAD5D41E5163460003FE1C /* Lap.swift in Sources */,
+				A2BAD5BF1E5162130003FE1C /* MasterTableRowController.swift in Sources */,
+				424E64491E5620FC00E44B4B /* ExtensionDelegate.swift in Sources */,
+				424754FA1E54D95C008CAD9C /* WatchIPhoneConnect.swift in Sources */,
+				42883D521E52857900EC4EE3 /* SupportLibs.swift in Sources */,
+				424754FC1E54DC12008CAD9C /* Common2.swift in Sources */,
+				A2BAD5DA1E5163460003FE1C /* SysDefines.swift in Sources */,
+				A2BAD5901E515E3F0003FE1C /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A2BAD58D1E515E3F0003FE1C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A2BAD5891E515E3E0003FE1C /* WatchRealmSyncWatchApp Extension */;
+			targetProxy = A2BAD58C1E515E3F0003FE1C /* PBXContainerItemProxy */;
+		};
+		A2BAD5971E515E3F0003FE1C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A2BAD57D1E515E3E0003FE1C /* WatchRealmSyncWatchApp */;
+			targetProxy = A2BAD5961E515E3F0003FE1C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A2BAD5731E515E210003FE1C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A2BAD5741E515E210003FE1C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A2BAD5771E515E210003FE1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A2BAD5781E515E210003FE1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A2BAD57A1E515E210003FE1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 10F09F5C6C8EA01A622B64F0 /* Pods-WatchRealmSync.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = WatchRealmSync/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"DEBUG\" \"-D\" \"BACKGROUND\"";
+				PRODUCT_BUNDLE_IDENTIFIER = com.YourCompany.WatchRealmSync;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		A2BAD57B1E515E210003FE1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09B7B2CE469E3B6EB0337843 /* Pods-WatchRealmSync.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = WatchRealmSync/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"BACKGROUND\"";
+				PRODUCT_BUNDLE_IDENTIFIER = com.YourCompany.WatchRealmSync;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		A2BAD59A1E515E3F0003FE1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6DED9D65A6E8E852CD0B55D3 /* Pods-WatchRealmSyncWatchApp Extension.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ENABLE_MODULES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "WatchRealmSyncWatchApp Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"DEBUG\" \"-D\" \"BACKGROUND\"";
+				PRODUCT_BUNDLE_IDENTIFIER = com.YourCompany.WatchRealmSync.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Debug;
+		};
+		A2BAD59B1E515E3F0003FE1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22006D404F2AF4E330E51F2F /* Pods-WatchRealmSyncWatchApp Extension.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "WatchRealmSyncWatchApp Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"BACKGROUND\"";
+				PRODUCT_BUNDLE_IDENTIFIER = com.YourCompany.WatchRealmSync.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Release;
+		};
+		A2BAD59E1E515E3F0003FE1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2AD242411A3FA1E6742127B /* Pods-WatchRealmSyncWatchApp.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
+				IBSC_MODULE = WatchRealmSyncWatchApp_Extension;
+				INFOPLIST_FILE = WatchRealmSyncWatchApp/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YourCompany.WatchRealmSync.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Debug;
+		};
+		A2BAD59F1E515E3F0003FE1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9093050501E49575F01F4C3A /* Pods-WatchRealmSyncWatchApp.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
+				IBSC_MODULE = WatchRealmSyncWatchApp_Extension;
+				INFOPLIST_FILE = WatchRealmSyncWatchApp/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.YourCompany.WatchRealmSync.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A2BAD5601E515E210003FE1C /* Build configuration list for PBXProject "WatchRealmSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2BAD5771E515E210003FE1C /* Debug */,
+				A2BAD5781E515E210003FE1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A2BAD5791E515E210003FE1C /* Build configuration list for PBXNativeTarget "WatchRealmSync" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2BAD57A1E515E210003FE1C /* Debug */,
+				A2BAD57B1E515E210003FE1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A2BAD5991E515E3F0003FE1C /* Build configuration list for PBXNativeTarget "WatchRealmSyncWatchApp Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2BAD59A1E515E3F0003FE1C /* Debug */,
+				A2BAD59B1E515E3F0003FE1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A2BAD59D1E515E3F0003FE1C /* Build configuration list for PBXNativeTarget "WatchRealmSyncWatchApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A2BAD59E1E515E3F0003FE1C /* Debug */,
+				A2BAD59F1E515E3F0003FE1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A2BAD55D1E515E210003FE1C /* Project object */;
+}

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="NWn-no-AxU">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
+    </dependencies>
+    <scenes>
+        <!--WatchRealmSync-->
+        <scene sceneID="xPl-Yk-1Ah">
+            <objects>
+                <controller identifier="InterfaceController" title="WatchRealmSync" id="NWn-no-AxU" customClass="InterfaceController" customModule="WatchRealmSyncWatchApp_Extension">
+                    <items>
+                        <group width="1" height="0.20000000000000001" alignment="center" id="3Gj-9t-mKN">
+                            <items>
+                                <button width="0.33329999999999999" height="1" alignment="left" title="X" id="os6-vN-4i4">
+                                    <fontDescription key="font" type="system" pointSize="20"/>
+                                    <connections>
+                                        <action selector="deleteButtonAct" destination="NWn-no-AxU" id="I09-AG-Ap5"/>
+                                    </connections>
+                                </button>
+                                <button width="0.33329999999999999" height="1" alignment="right" title="+" id="ZUz-JJ-qN7">
+                                    <fontDescription key="font" type="system" pointSize="24"/>
+                                    <connections>
+                                        <action selector="addButtonAct" destination="NWn-no-AxU" id="BwL-5s-IjF"/>
+                                    </connections>
+                                </button>
+                                <button width="0.33329999999999999" height="1" alignment="center" title="Mod" id="QHx-JF-hZK">
+                                    <fontDescription key="font" type="system" pointSize="11"/>
+                                    <connections>
+                                        <action selector="modifyButtonAct" destination="NWn-no-AxU" id="EJM-cH-WlZ"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
+                        <table alignment="left" id="mat-i0-0LU">
+                            <items>
+                                <tableRow identifier="default" id="L1q-XU-iZR" customClass="MasterTableRowController" customModule="WatchRealmSyncWatchApp_Extension" colorLabel="IBBuiltInLabel-Purple">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" spacing="6" id="zw6-P3-Me4">
+                                        <items>
+                                            <separator alignment="left" id="5hb-lO-QNN"/>
+                                            <group alignment="left" layout="vertical" spacing="0.0" id="1AM-sH-dkZ">
+                                                <items>
+                                                    <label width="1" alignment="center" text="Item name" textAlignment="left" minimumScaleFactor="0.5" id="Uxd-eZ-qHW">
+                                                        <fontDescription key="font" type="system" weight="semibold" pointSize="20"/>
+                                                    </label>
+                                                    <group width="1" alignment="left" id="0mz-k2-9EL">
+                                                        <items>
+                                                            <label width="0.20000000000000001" alignment="center" verticalAlignment="bottom" hidden="YES" text="0" textAlignment="left" minimumScaleFactor="0.5" id="CG2-Q2-zEw" userLabel="todayCount">
+                                                                <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                                            </label>
+                                                            <label width="0.90000000000000002" alignment="center" verticalAlignment="bottom" text="0:00" textAlignment="right" minimumScaleFactor="0.5" id="bQ7-QE-PGj" userLabel="thisTime">
+                                                                <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                                            </label>
+                                                            <label width="0.40000000000000002" alignment="center" verticalAlignment="bottom" hidden="YES" text="0:00" textAlignment="right" minimumScaleFactor="0.5" id="a9Q-ud-9db" userLabel="todayTime">
+                                                                <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                                            </label>
+                                                        </items>
+                                                    </group>
+                                                </items>
+                                            </group>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="selectSeparator" destination="5hb-lO-QNN" id="dpg-Vb-YMC"/>
+                                        <outlet property="thisTimeLabel" destination="bQ7-QE-PGj" id="kRu-ez-yfj"/>
+                                        <outlet property="titleLabel" destination="Uxd-eZ-qHW" id="KN9-Rh-ONj"/>
+                                        <outlet property="todayCountLabel" destination="CG2-Q2-zEw" id="HrO-gh-Nwi"/>
+                                        <outlet property="todayTimeLabel" destination="a9Q-ud-9db" id="9Td-rp-Jhm"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <menu key="menu" id="5sP-rd-FS1">
+                        <items>
+                            <menuItem title="Sync all" icon="resume" id="2Ma-LH-PI4">
+                                <connections>
+                                    <action selector="syncAllButton" destination="NWn-no-AxU" id="nne-nb-72y"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                    <connections>
+                        <outlet property="addButton" destination="ZUz-JJ-qN7" id="cZ2-3i-kr4"/>
+                        <outlet property="deleteButton" destination="os6-vN-4i4" id="Afx-mh-J8F"/>
+                        <outlet property="displayTable" destination="mat-i0-0LU" id="Eye-aH-VYK"/>
+                        <outlet property="modifyButton" destination="QHx-JF-hZK" id="pDH-So-mjH"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="129" y="103"/>
+        </scene>
+    </scenes>
+</document>
