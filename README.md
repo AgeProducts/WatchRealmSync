@@ -1,13 +1,13 @@
-# WatchRealmSync v2.0
-Sample implementation to synchronize Realm table (DB) between watchOS and iOS.
-Slightly stable so I will post the second version.
+# WatchRealmSync
+Sample implementation to synchronize Realm table (DB) between watchOS and iOS.  
+Slightly stable so I will post the second version.  
 Please see Demo.gif.
 
 ## Features
-* Realize Realm DB sync with normal Realm app programming.
+* Realize Realm DB sync with normal Realm programming.
 * Offline compatible.
 
-## Demo pj
+## Demo project
 
 #### Requirements
 * Xcode 8.3.2
@@ -15,27 +15,28 @@ Please see Demo.gif.
 * watchOS 3.2
 
 #### Make
-1. $ cd WatchRealmSync
+1. $ cd WatchRealmSync\ master
 2. $ pod install
-3. open Xcode “WatchRealmSync.xcworkspace”
+3. Open Xcode “WatchRealmSync.xcworkspace”
 4. TARGET -> "WatchRealmSync" -> “General tab”
- * Identify -> Build Identifier: "com.YourCompany.WatchRealmSync..” change to your_company identifier.
- * Singing -> Team : "None" set your development team.
+ * Identify -> Build Identifier: `"com.YourCompany.WatchRealmSync.."` change to your_company identifier.
+ * Singing -> Team : `"None"` set your development team.
 5. Change TARGET -> "WatchRealmSyncWatchApp", "WatchRealmSyncWatchApp Extension", and same OP item 4.
+6. Run
 
 #### Operation (iOS)
-* + : Make an item.
-* Trash : Delete selected items.
-* Compose : Randomize selected items.
+* \+ : Make an item.
+* Trash icon: Delete selected items.
+* Compose icon: Randomize selected items.
 * Make10 : Make 10 items. 1/3 is selected.
 * DelAll : Delete all.
 * Reload : Refresh all items.
 
 ##### Operation (watchOS)
-* + : Make an item.
+* \+ : Make an item.
 * mod : Randomize selected items.
 * X : Delete selected items.
-* LongPress + Sync : Refresh all items.
+* LongPress + "Sync" : Refresh all items.
 
 ## Limitations and Known issues
 * In case of UI high load (Watch side), occasionally ABEND with "exit 0". Still not a bug?
@@ -46,17 +47,17 @@ Please see Demo.gif.
 
 For the above reasons, this app is "sample".
 
-## WatchRealmSync app correction method
+## Modify demo app
 ### Lap.swift
 1. Item identifier ~ youWrote is prohibited from changing.
 2. Add, modify and delete items freely below the item "select".
 3. For added items to be sync, please modify the code of function lapItemCopy (copy) and lapItemComp (compare).
 
-### app (WatchRealmSync. WatchRealmSyncWatchApp Extension)
+### app (WatchRealmSync, WatchRealmSyncWatchApp Extension)
 1. It is based on normal (iOS/watchOS) Realm app programming.
-2. When using notification (addNotificationBlock), register token in sync mechanism. See "InterfaceController.swift".
- * Token acquisition : notificationToken = laps.addNotificationBlock {
- * Token registration : Common2.sharedInstance.realmTokens.append(self.notificationToken)
+2. When using Realm notification (addNotificationBlock), register token in sync mechanism. See "InterfaceController.swift".
+ * Token acquisition : `notificationToken = laps.addNotificationBlock {`
+ * Token registration : `Common2.sharedInstance.realmTokens.append(notificationToken)`
  * If you do not register token, you will be notified twice for a single write. Performance will not be a problem with iOS (e.g. ViewController.swift). I feel bad, but...
 
 ## License
