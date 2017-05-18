@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var composeButton: UIBarButtonItem!
     
     @IBOutlet weak var reloadButton: UIBarButtonItem!
-    @IBOutlet weak var make100dButton: UIBarButtonItem!
+    @IBOutlet weak var make10dButton: UIBarButtonItem!
     @IBOutlet weak var delAllButton: UIBarButtonItem!
     
     let bag = DisposeBag()
@@ -38,113 +38,117 @@ class ViewController: UIViewController {
         if WatchIPhoneConnect.sharedConnectivityManager.watchSupport() == false ||
             WatchIPhoneConnect.sharedConnectivityManager.watchIsPaired() == false {
             NSLog("Watch connect setting error.")
-//            assertionFailure("Watch setting error. Give up!")
+            // assertionFailure("Watch setting error. Give up!")
         }
-
+        
         lapsAll = realm.objects(Lap.self)
-        let (firstDate, lastDate) = common2.viewDate(baseDate: Date(), month: IPhoneViewMonth)
-        let predicate = NSPredicate(format: "(usertime >= %@) AND (usertime <= %@)", firstDate as CVarArg, lastDate as CVarArg)
-        laps = lapsAll.filter(predicate).sorted(byKeyPath: "usertime", ascending:false)
-        lapsSelect = lapsAll.filter("select == true")
-
+        laps = lapsAll.sorted(byKeyPath: "usertime", ascending:false)
+        lapsSelect = laps.filter("select==true")
+        
         Observable.changeset(from: lapsAll)
             .subscribe(onNext: { [weak self] results, changes in
-                guard let `self` = self else { return }
-                let count = "\(self.laps.count)/\(self.lapsSelect.count)/\(self.lapsAll.count)"
-                self.title = count
+                guard let wself = self else { return }
+                let count = "\(wself.laps.count)/\(wself.lapsSelect.count)/\(wself.lapsAll.count)"
+                wself.title = count
             })
             .addDisposableTo(bag)
-
+        
         Observable.changeset(from: laps)
             .subscribe(onNext: { [weak self] results, changes in
-                guard let `self` = self else { return }
+                guard let wself = self else { return }
                 if let changes = changes {
                     // it's an update only
-                        self.tableView.applyChangeset(changes)
+                    wself.tableView.applyChangeset(changes)
                 } else {
                     // it's the initial data
-                    self.tableView.reloadData()
+                    wself.tableView.reloadData()
                 }
             })
             .addDisposableTo(bag)
         
         addButton.rx.tap                    // Add item.
             .subscribe(onNext: { [weak self] in
-                guard let `self` = self else { return }
+                guard let wself = self else { return }
                 let lap = Lap()
                 lap.usertime = Date()
                 lap.text = "新てきすと"
                 do {
-                    try self.realm.write {
-                        self.realm.add(lap)
+                    try wself.realm.write {
+                        wself.realm.add(lap)
                     }
                 }
                 catch let error as NSError {
                     NSLog("Error - \(error.localizedDescription)")
                 }
-
+                
             })
             .addDisposableTo(bag)
-
+        
         trashButton.rx.tap                  // Delete (selected) items.
             .subscribe(onNext: { [weak self] in
-                guard let `self` = self else { return }
-                do {
-                    try self.realm.write {
-                        let items = self.realm.objects(Lap.self).filter("select==true")
-                        self.realm.delete(items)
+                guard let wself = self else { return }
+                let items = wself.realm.objects(Lap.self).filter("select==true")
+                if items.isEmpty == false {
+                    do {
+                        try wself.realm.write {
+                            wself.realm.delete(items)
+                        }
                     }
-                }
-                catch let error as NSError {
-                    NSLog("Error - \(error.localizedDescription)")
+                    catch let error as NSError {
+                        NSLog("Error - \(error.localizedDescription)")
+                    }
                 }
             })
             .addDisposableTo(bag)
-
+        
         composeButton.rx.tap                // Make random. text and usertime.
             .subscribe(onNext: { [weak self] in
-                guard let `self` = self else { return }
-                let (simulationFirstDate, simulationLastDate) = self.common2.viewDate(baseDate: Date(), month: MakeSimulationMonth)
-                 do {
-                    try self.realm.write {
-                        let items = self.realm.objects(Lap.self).filter("select==true")
-                        items.forEach { item in
-                            item.usertime = RandomGenerator.randomDate3(simulationFirstDate, lastDate: simulationLastDate)!
-                            item.text = RandomGenerator.randomStringWithLength(16)
+                guard let wself = self else { return }
+                // let (simulationFirstDate, simulationLastDate) = self.common2.viewDate(baseDate: Date(), month: MakeSimulationMonth)
+                let simulationFirstDate = Date()
+                let simulationLastDate = DateHelper.getDateBeforeOrAfterSomeMonth(baseDate:simulationFirstDate, month: Double(-MakeSimulationMonth))
+                let realm2 = try! Realm()
+                let items = realm2.objects(Lap.self).filter("select==true")
+                if items.isEmpty == false {
+                    do {
+                        try realm2.write {
+                            // let items = wself.realm.objects(Lap.self).filter("select==true")
+                            items.forEach { item in
+                                item.usertime = RandomMaker.randomDate3(simulationFirstDate, lastDate: simulationLastDate)!
+                                item.text = RandomMaker.randomStringWithLength(16)
+                            }
                         }
                     }
-                }
-                catch let error as NSError {
-                    NSLog("Error - \(error.localizedDescription)")
+                    catch let error as NSError {
+                        NSLog("Error - \(error.localizedDescription)")
+                    }
                 }
             })
             .addDisposableTo(bag)
         
         reloadButton.rx.tap                 // Update and Sync all.
             .subscribe(onNext: { [weak self] in
-                guard let `self` = self else { return }
-                self.inquireSendALL()
-             })
-            .addDisposableTo(bag)
-        
-        make100dButton.rx.tap               // Make 100 items
-            .subscribe(onNext: { [weak self] in
-                guard let `self` = self else { return }
-                self.makeItems()
+                guard let wself = self else { return }
+                wself.inquireSendALL()
             })
             .addDisposableTo(bag)
-
+        
+        make10dButton.rx.tap               // Make 10 items
+            .subscribe(onNext: { [weak self] in
+                guard let wself = self else { return }
+                wself.make10Items()
+            })
+            .addDisposableTo(bag)
+        
         delAllButton.rx.tap               // Delete All
             .subscribe(onNext: { [weak self] in
-                guard let `self` = self else { return }
-                self.deleteItems()
+                guard let wself = self else { return }
+                wself.deleteItems()
             })
             .addDisposableTo(bag)
         
         /* init Sync All */
-//        if common2.isLoadedStatus != .kLoaded {
-            inquireSendALL()
-//        }
+        inquireSendALL()
     }
     
     deinit {
@@ -154,43 +158,27 @@ class ViewController: UIViewController {
         common2.watchTableSendAll()
         common2.requestSendAll()
     }
-
+    
     func inquireSendALL() {
         requestSendALL()
-//        if WatchIPhoneConnect.sharedConnectivityManager.watchSessionActivationState() == .activated &&
-//            WatchIPhoneConnect.sharedConnectivityManager.watchAppInstalled() == true {
-//            self.requestSendALL()
-//        } else {
-//            NSLog("Watch Connection error!!")
-//            // NSLog("watchReachable:\(WatchIPhoneConnect.sharedConnectivityManager.watchReachable())")
-//            NSLog("watchSessionActivationState:\(WatchIPhoneConnect.sharedConnectivityManager.watchSessionActivationState())")
-//            NSLog("watchAppInstalled:\(WatchIPhoneConnect.sharedConnectivityManager.watchAppInstalled())")
-//            dispatch_async_main {
-//                let alert = UIAlertController(title: "Alert", message: "Counterpart app not installed.\nCheck setting and please try again.", preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "cancel", style: .cancel))
-//                alert.addAction(UIAlertAction(title: "retry", style: .default) { _ in
-//                    self.inquireSendALL()
-//                })
-//                self.present(alert, animated: true, completion: nil)
-//            }
-//        }
     }
     
-    /* Make 100 items */
-    let count = 100
-    func makeItems() {
+    /* Make 10 items */
+    let makeCount = 10
+    func make10Items() {
         DispatchQueue(label: "background").async {
-            let (simulationFirstDate, simulationLastDate) = self.common2.viewDate(baseDate: Date(), month: MakeSimulationMonth)
+            let simulationFirstDate = Date()
+            let simulationLastDate = DateHelper.getDateBeforeOrAfterSomeMonth(baseDate:simulationFirstDate, month: Double(-MakeSimulationMonth))
             autoreleasepool { [weak self] in
-                guard let `self` = self else { return }
+                guard let wself = self else { return }
                 let realm2 = try! Realm()
                 do {
                     try realm2.write {
-                        for _ in 0 ..< self.count {
+                        for _ in 0 ..< wself.makeCount {
                             let lap = Lap()
-                            lap.usertime = RandomGenerator.randomDate3(simulationFirstDate, lastDate: simulationLastDate)!
-                            lap.text = RandomGenerator.randomStringWithLength(16)
-                            lap.select = RandomGenerator.randomNumIntegerWithLimits(lower: 0, upper: 3) == 0 ? true : false   // select 25%
+                            lap.usertime = RandomMaker.randomDate3(simulationFirstDate, lastDate: simulationLastDate)!
+                            lap.text = RandomMaker.randomStringWithLength(16)
+                            lap.select = RandomMaker.randomNumIntegerWithLimits(lower: 0, upper: 2) == 0 ? true : false   // select 33%
                             realm2.add(lap)
                         }
                     }
@@ -199,7 +187,7 @@ class ViewController: UIViewController {
                     NSLog("Error - \(error.localizedDescription)")
                 }
             }
-       }
+        }
     }
     
     /* Delete all */
@@ -225,12 +213,16 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return laps.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let lap = laps[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
         cell.detailTextLabel?.text = lap.text
-        cell.textLabel?.text = formatter.string(from: lap.usertime)
+        if DateHelper.firstDateFromDate(Date()) == DateHelper.firstDateFromDate(lap.usertime) {
+            cell.textLabel?.text = timeformatter.string(from: lap.usertime)
+        } else {
+            cell.textLabel?.text = dateformatter.string(from: lap.usertime)
+        }
         if lap.select == true {
             cell.backgroundColor = UIColor.rgbColor(0x3498DB)       // UIColor.flatBlueColor())
         } else {
@@ -242,9 +234,10 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let lap = laps[indexPath.row]
         do {
             try realm.write {
-                self.laps[indexPath.row].select = !self.laps[indexPath.row].select
+                lap.select = !lap.select
             }
         }
         catch let error as NSError {

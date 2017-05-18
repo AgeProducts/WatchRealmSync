@@ -42,13 +42,13 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
                 fatalError("Watch connection: not Supported! error.")
             }
         #else
-        if watchSupport()==true {
-            let session = WCSession.default()
-            session.delegate = self
-            session.activate()
-        } else {
-            fatalError("Watch connection : not Supported! error.")
-        }
+            if watchSupport()==true {
+                let session = WCSession.default()
+                session.delegate = self
+                session.activate()
+            } else {
+                fatalError("Watch connection : not Supported! error.")
+            }
         #endif
     }
     
@@ -157,9 +157,9 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
         }
         if command == "sendWakeUp$$" {
             let retMsg = self.delegate?.receiveWakeup()
-            replyHandler(["reply":"ACK:\(command) \(retMsg)"])
+            replyHandler(["reply":String(format:"ACK:%@ %@",command, retMsg!)])
         } else {
-            replyHandler(["reply":"NACK:\(command)"])
+            replyHandler(["reply":String(format:"NACK:%@",command)])
         }
     }
 
@@ -180,6 +180,18 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
     
     func transferFile(_ fileUrl:URL, command:String) {
         WCSession.default().transferFile(fileUrl, metadata: ["command":command])
+    }
+    
+    func transferFileCount() -> Int {
+        return WCSession.default().outstandingFileTransfers.count
+    }
+    
+    func transferFileHasContentPending() -> Bool {
+        return WCSession.default().hasContentPending
+    }
+    
+    func transferFileArray() -> [WCSessionFileTransfer] {
+        return WCSession.default().outstandingFileTransfers
     }
     
     func session(_ session: WCSession, didReceive file: WCSessionFile) {

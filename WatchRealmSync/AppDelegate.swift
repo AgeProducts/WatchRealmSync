@@ -7,10 +7,12 @@
 //
 
 import UIKit
+#if BACKGROUND
 import WatchConnectivity
+#endif
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 

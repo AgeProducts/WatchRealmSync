@@ -22,14 +22,15 @@ enum loadInitType {
 }
 
 /* Setup defaults & UD Keys */
-let UD_LOADED_ONCE          = "UD_LOADED_ONCEv1.0"
-let UD_LOADED_ONCE_PREVIOS  = "UD_LOADED_ONCEvNON"
+let UD_LOADED_ONCE          = "UD_LOADED_ONCEv2.0"
+let UD_LOADED_ONCE_PREVIOS  = "UD_LOADED_ONCEv1.0"
+// let UD_LOADED_ONCE_PREVIOS  = "UD_LOADED_ONCEvNON"   first ver
 
 /* REALM DB */
-let WATCH_REALM_TRAN        = "WatchRealmSyncTrans.realm"
+let WATCH_TRAN_REALM        = "WatchTrans.realm"
 
 /* Update Transaction / Polling Delay (sec) */
-let UpdateDelayTimer = 1.0
+let UpdateDelayTimer = 0.5
 let PollingDelayTimer = 10.0
 
 /* notification */
@@ -37,6 +38,6 @@ let WCSessionReachabilityDidChangeNotification =  "ReachabilityDidChangeNotifica
 let WCSessionWatchStateDidChangeNotification =    "WatchStateDidChangeNotification"
 
 /* setting date (month) */
-let MakeSimulationMonth = 12
-let IPhoneViewMonth = 3
+let MakeSimulationMonth = 1
+let IPhoneViewMonth = 1
 let WatchViewMonth = 1

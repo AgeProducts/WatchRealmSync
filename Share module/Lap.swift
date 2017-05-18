@@ -16,7 +16,7 @@ class Lap: Object {
     dynamic var modifyDate = Date()
     dynamic var youWrote = false
     override static func primaryKey() -> String? { return "identifier" }
-
+    
     /* As you like */
     dynamic var select = false
     dynamic var usertime = Date()
@@ -32,10 +32,8 @@ class Lap: Object {
 
 func lapItemCopy(from:Lap, to:Lap) {
     /* */
-//    to.identifier = from.identifier
     to.createDate = from.createDate
     to.modifyDate = from.modifyDate
-    to.youWrote = from.youWrote
     
     /* */
     to.select = from.select

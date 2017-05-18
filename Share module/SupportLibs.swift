@@ -34,7 +34,7 @@ class DateHelper {
         dateFormatter.calendar = calendar
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .medium
-        }
+    }
     
     static func firstDateFromYearMonthDay(_ year:Int, month:Int, day:Int) -> Date {
         let  calendar = Calendar(identifier: Calendar.Identifier.gregorian)
@@ -71,7 +71,7 @@ class DateHelper {
         let range = (calendar as NSCalendar?)?.range(of: .day, in: .month, for:tmpDate!)
         return range!.length
     }
-
+    
     static func firstDateFromDate(_ date:Date) -> Date {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         var dateComponents = (calendar as Calendar).dateComponents([.day, .month, .year], from: date)
@@ -95,6 +95,24 @@ class DateHelper {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         let dateComponents = (calendar as Calendar).dateComponents([.day, .month, .year], from: date)
         return (dateComponents.year!, dateComponents.month!, dateComponents.day!)
+    }
+    
+    static func getDateBeforeOrAfterSomeDay(baseDate:Date, day:Double) -> Date {
+        var resultDate:Date
+        if day > 0 {
+            resultDate = Date(timeInterval: (60*60*24)*day, since: baseDate as Date)
+        } else {
+            resultDate = Date(timeInterval: -(60*60*24)*fabs(day), since: baseDate as Date)
+        }
+        return resultDate
+    }
+    
+    static func getDateBeforeOrAfterSomeWeek(baseDate:Date, week:Double) -> Date {
+        return getDateBeforeOrAfterSomeDay(baseDate: baseDate, day: week*7)
+    }
+    
+    static func getDateBeforeOrAfterSomeMonth(baseDate:Date, month:Double) -> Date {
+        return getDateBeforeOrAfterSomeDay(baseDate: baseDate, day: month*31)
     }
 }
 
@@ -147,7 +165,7 @@ public class FileHelper {
 }
 
 
-class RandomGenerator {
+class RandomMaker {
     
     static func randomFloat(Min _Min : Float, Max _Max : Float)->Float {
         return ( Float(arc4random_uniform(UINT32_MAX)) / Float(UINT32_MAX) ) * (_Max - _Min) + _Min
@@ -156,7 +174,7 @@ class RandomGenerator {
     static func randomDouble(Min _Min : Double, Max _Max : Double)->Double {              // DEBUG
         return (Double(arc4random_uniform(UINT32_MAX)) / Double(UINT32_MAX) ) * (_Max - _Min) + _Min
     }
-
+    
     static func randomNumIntegerWithLimits(lower:Int, upper:Int) -> Int {
         if upper < lower {
             return -1
@@ -181,9 +199,24 @@ class RandomGenerator {
         return result
     }
     
+    static func randomNihonngoStringWithLength(_ len:Int) -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        var result:String = ""
+        if len <= 0 {
+            NSLog ("randomStringWithLength: error length 0 error");
+            return ""
+        }
+        for _ in 0..<len {
+            let startindex = letters.characters.index(letters.startIndex, offsetBy: Int(arc4random_uniform(UInt32(letters.characters.count))))
+            let endindex = letters.index(startindex, offsetBy: 1)
+            result += letters.substring(with: startindex..<endindex)
+        }
+        return result
+    }
+    
     static func randomDate3(_ firstDate:Date?, lastDate:Date?) -> Date? {
         let interval = (lastDate?.timeIntervalSince(firstDate!))!
-        return  firstDate?.addingTimeInterval(Double.random(to: interval) )
+        return  firstDate?.addingTimeInterval(Double.random(to: interval, using: &ARC4Random.default))
     }
 }
 
@@ -207,9 +240,19 @@ extension UIColor {
     }
 }
 
-let formatter: DateFormatter = {
+let dateformatter: DateFormatter = {
     let f = DateFormatter()
-    f.dateFormat = "yy/MM/dd HH:mm:ss"
+    f.dateFormat = "M/dd HH:mm:ss"
+    // f.dateFormat = "yy/MM/dd"
+    // f.dateStyle = .none
+    // f.timeStyle = .short
+    return f
+}()
+
+let timeformatter: DateFormatter = {
+    let f = DateFormatter()
+    f.dateFormat = "M/dd HH:mm:ss"
+    // f.dateFormat = "HH:mm:ss"
     // f.dateStyle = .none
     // f.timeStyle = .short
     return f

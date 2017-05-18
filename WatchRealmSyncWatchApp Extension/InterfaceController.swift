@@ -25,43 +25,56 @@ class InterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        let (firstdate, lastdate) = common2.viewDate(baseDate: Date(), month: WatchViewMonth)
-        let predicate = NSPredicate(format: "(usertime >= %@) AND (usertime <= %@)", firstdate as CVarArg, lastdate as CVarArg)
-        laps = realm.objects(Lap.self).filter(predicate).sorted(byKeyPath: "usertime", ascending:false)
-
+        laps = realm.objects(Lap.self).sorted(byKeyPath: "usertime", ascending:false)
+        
         notificationToken = laps.addNotificationBlock { [weak self] (changes: RealmCollectionChange) in
-            guard let `self` = self else { return }
-
+            guard let wself = self else { return }
+            
+            let realm2 = try! Realm()
+            let laps2 = realm2.objects(Lap.self).sorted(byKeyPath: "usertime", ascending:false)
+            
             switch changes {
             case .initial:
-                // Results are now populated and can be accessed without blocking the UI
-                self.displayTable.setNumberOfRows(self.laps.count, withRowType: "default")
-                self.laps.enumerated().forEach { index, item in
-                    self.setTableContents(index: index, lap: item)
+                wself.displayTable.setNumberOfRows(laps2.count, withRowType: "default")
+                laps2.enumerated().forEach { index, item in
+                    wself.setTableContents(lap: item)
                 }
                 break
+                
             case .update(_, let deletions, let insertions, let modifications):
-                self.applyChangeset(deleted:deletions, inserted:insertions, updated:modifications)
+                // NSLog("deleted: \(deletions) : \(deletions.count), inserted: \(insertions) : \(insertions.count), modification: \(modifications) : \(modifications.count)")
+                
+                if deletions.isEmpty == false && insertions.isEmpty == false {
+                    wself.applyChangeset(deleted:deletions, inserted:insertions, updated:modifications)
+                } else {
+                    wself.displayTable.setNumberOfRows(laps2.count, withRowType: "default")
+                    laps2.enumerated().forEach { index, item in
+                        wself.setTableContents(lap: item)
+                    }
+                }
                 break
+                
             case .error(let error):
                 fatalError("\(error)")
                 break
             }
+            // }
         }
-        
-        /*
-         Initial Sync All
-        */
-//        if common2.isLoadedStatus != .kLoaded {
-            inquireSendALL()
-//        }
+        common2.realmTokens.append(self.notificationToken!)
+        inquireSendALL()
     }
     
     deinit {
-        notificationToken?.stop()
+        if notificationToken != nil {
+            notificationToken?.stop()
+            let index = common2.realmTokens.index(of: self.notificationToken!)
+            if index != NSNotFound {
+                common2.realmTokens.remove(at: index!)
+            }
+        }
     }
     
-   override func willActivate() {
+    override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
     }
@@ -70,7 +83,7 @@ class InterfaceController: WKInterfaceController {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
-
+    
     // Menu Sync All
     @IBAction func syncAllButton() {
         inquireSendALL()
@@ -79,11 +92,9 @@ class InterfaceController: WKInterfaceController {
     // Delete item
     @IBAction func deleteButtonAct() {
         DispatchQueue(label: "background").async { [weak self] _ in
-            guard let `self` = self else { return }
+            guard let wself = self else { return }
             let realm2 = try! Realm()
-            let (firstdate, lastdate) = self.common2.viewDate(baseDate: Date(), month: WatchViewMonth)
-            let predicate = NSPredicate(format: "(usertime >= %@) AND (usertime <= %@)", firstdate as CVarArg, lastdate as CVarArg)
-            let deleteItem = realm2.objects(Lap.self).filter(predicate).filter("select==true")
+            let deleteItem = realm2.objects(Lap.self).filter("select==true")
             if deleteItem.isEmpty == false {
                 do {
                     try realm2.write {
@@ -100,19 +111,19 @@ class InterfaceController: WKInterfaceController {
     // Modify item
     @IBAction func modifyButtonAct() {
         DispatchQueue(label: "background").async { [weak self] _ in
-            guard let `self` = self else { return }
+            guard let wself = self else { return }
             let realm2 = try! Realm()
-            let (firstdate, lastdate) = self.common2.viewDate(baseDate: Date(), month: WatchViewMonth)
-            let predicate = NSPredicate(format: "(usertime >= %@) AND (usertime <= %@)", firstdate as CVarArg, lastdate as CVarArg)
-            let laps2 = realm2.objects(Lap.self).filter(predicate).filter("select==true")
+            let firstdate = Date()
+            let lastdate = DateHelper.getDateBeforeOrAfterSomeMonth(baseDate:firstdate, month: Double(-WatchViewMonth))
+            let laps2 = realm2.objects(Lap.self).filter("select==true")
             if laps2.isEmpty == false {
+                laps2.realm!.beginWrite()
+                laps2.forEach { lap in
+                    lap.usertime = RandomMaker.randomDate3(firstdate, lastDate: lastdate)!
+                    lap.text = RandomMaker.randomStringWithLength(16)
+                }
                 do {
-                    try realm2.write {
-                        laps2.forEach { lap in
-                            lap.usertime = RandomGenerator.randomDate3(firstdate, lastDate: lastdate)!
-                            lap.text = RandomGenerator.randomStringWithLength(16)
-                        }
-                    }
+                    try laps2.realm!.commitWrite()
                 }
                 catch let error as NSError {
                     NSLog("Error - \(error.localizedDescription)")
@@ -123,6 +134,7 @@ class InterfaceController: WKInterfaceController {
     
     // Add new item
     @IBAction func addButtonAct() {
+        
         let lap = Lap()
         lap.text = "New Text"
         do {
@@ -134,8 +146,8 @@ class InterfaceController: WKInterfaceController {
             NSLog("Error - \(error.localizedDescription)")
         }
     }
-
-    /* addNotificationBloc version */
+    
+    //
     func applyChangeset(deleted:[Int], inserted:[Int], updated:[Int]) {
         deleted.reversed().forEach { index in
             displayTable.removeRows(at: [index])
@@ -145,26 +157,44 @@ class InterfaceController: WKInterfaceController {
                 return
             }
             displayTable.insertRows(at: [index], withRowType: "default")
-            setTableContents(index:index, lap:self.laps[index])
+            setTableContents(lap:self.laps[index])
         }
         updated.forEach { index in
             if laps.count <= index {
                 return
             }
-            setTableContents(index:index, lap:self.laps[index])
+            setTableContents(lap:self.laps[index])
         }
     }
     
-    func setTableContents(index:Int, lap:Lap) {
+    func setTableContents(lap:Lap) {
+        
+        var index = NSNotFound
+        laps.enumerated().forEach { idx, element in
+            if lap.identifier == element.identifier {
+                index = idx
+            }
+        }
+        if index == NSNotFound {
+            NSLog("InterfaceController: setTableContent error 01")
+            return
+        }
         guard let zcontroller = displayTable.rowController(at: index) else {
-            NSLog("set TableContent error 01")
+            NSLog("InterfaceController: setTableContent error 02")
             return
         }
         let controller = zcontroller as! MasterTableRowController
         controller.titleLabel.setText(lap.text)
-        controller.todayCountLabel.setText(index.description)
-        controller.thisTimeLabel.setText(formatter.string(from: lap.usertime))
-        controller.todayTimeLabel.setText(formatter.string(from: lap.modifyDate))
+        if DateHelper.firstDateFromDate(Date()) == DateHelper.firstDateFromDate(lap.usertime) {
+            controller.thisTimeLabel.setText(timeformatter.string(from: lap.usertime))
+        } else {
+            controller.thisTimeLabel.setText(dateformatter.string(from: lap.usertime))
+        }
+//        if DateHelper.firstDateFromDate(Date()) == DateHelper.firstDateFromDate(lap.modifyDate) {
+//            controller.thisTimeLabel.setText(timeformatter.string(from: lap.modifyDate))
+//        } else {
+//            controller.thisTimeLabel.setText(dateformatter.string(from: lap.modifyDate))
+//        }
         if lap.select == true {
             controller.selectSeparator.setColor(UIColor.rgbColor(0x3498DB))     // UIColor.flatBlueColor())
         } else {
@@ -173,18 +203,15 @@ class InterfaceController: WKInterfaceController {
     }
     
     override func table(_ table: WKInterfaceTable,  didSelectRowAt rowIndex: Int) {
-        if rowIndex >= laps.count {
-            return
-        }
+        
+        laps.realm!.beginWrite()
+        laps[rowIndex].select = !laps[rowIndex].select
         do {
-            try realm.write {
-                laps[rowIndex].select = !laps[rowIndex].select
-            }
+            try laps.realm!.commitWrite()
         }
         catch let error as NSError {
             NSLog("Error - \(error.localizedDescription)")
         }
-        self.setTableContents(index:rowIndex, lap: laps[rowIndex])
     }
     
     func requestSendALL() {
@@ -194,19 +221,20 @@ class InterfaceController: WKInterfaceController {
     
     func inquireSendALL() {
         requestSendALL()
-//        NSLog("send Wake up.")
+//        NSLog("InterfaceController: send Wake up.")
 //        common2.sendWakeUp( replyHandler: { replyDict in
 //            NSLog("Reply: \(replyDict)")
-//           if (replyDict["SendWakeUpReply"] as! String).hasPrefix("ACK:sendWakeUp$$") == true {
+//            let replyMsg = replyDict["SendWakeUpReply"] as! String
+//            if replyMsg.hasPrefix("ACK:sendWakeUp$$") == true {
 //                self.requestSendALL()
 //            } else {
-//                NSLog("Reply MSG: \(replyDict["SendWakeUpReply"])")
+//                NSLog("Reply MSG: \(replyMsg)")
 //                dispatch_async_main {
 //                    let cancelAction = WKAlertAction(title:"cancel", style: .default){}
 //                    let retryAction = WKAlertAction(title:"retry", style: .default) { _ in
 //                        self.inquireSendALL()
 //                    }
-//                    let subTitle = "Not connect to paired iPhone.\nPlease try again."
+//                    let subTitle = "Not connect to paired iPhone.\nPlease try again.\n[Reply MSG]\n" + replyMsg
 //                    self.presentAlert(withTitle: "Alert", message: subTitle, preferredStyle: .alert, actions: [retryAction, cancelAction])
 //                }
 //            }
