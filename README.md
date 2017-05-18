@@ -39,8 +39,8 @@ Please see Demo.gif.
 * LongPress + "Sync" : Refresh all items.
 
 ## Limitations and Known issues
-* In case of UI high load (Watch side), occasionally ABEND with "exit 0". Still not a bug?
-* Display update of WKInterfaceTable is extremely slow. When updating display items in sorting order (eg Demo), 20 items or less is practical. In the case of no rearrangement (addition, deletion, content change) it is OK even for about 100 items.
+* In case of UI high load (Watch side), occasionally ABEND with "exit 0".
+* Display update of WKInterfaceTable is extremely slow. When updating display items in sorting order (e.g. Demo), 20 items or less is practical. In the case of no rearrangement (addition, deletion, content change) it is OK even for about 100 items.
 * Realm DB size and number of items are not limited.
 * The strictness of the millisecond level can not be guaranteed.
 * Multiple Watch Not Supported. Also, although background functions are implemented, verification is incomplete..
