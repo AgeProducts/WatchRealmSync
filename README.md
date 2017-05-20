@@ -11,7 +11,7 @@ Please see Demo.gif.
 
 #### Requirements
 * Xcode 8.3.2
-* iOS 10.3.1
+* iOS 10.3.
 * watchOS 3.2
 
 #### Make
@@ -25,18 +25,20 @@ Please see Demo.gif.
 6. Run
 
 #### Operation (iOS)
+* tap line : select item.
 * \+ : Make an item.
-* Trash icon: Delete selected items.
-* Compose icon: Randomize selected items.
+* trash icon: Delete selected items.
+* compose icon: Randomize selected items.
 * Make10 : Make 10 items. 1/3 is selected.
 * DelAll : Delete all.
 * Reload : Refresh all items.
 
 ##### Operation (watchOS)
+* tap line : select item.
 * \+ : Make an item.
 * mod : Randomize selected items.
 * X : Delete selected items.
-* LongPress + "Sync" : Refresh all items.
+* longPress + "Sync" : Refresh all items.
 
 ## Limitations and Known issues
 * In case of UI high load (Watch side), occasionally ABEND with "exit 0".
@@ -53,7 +55,7 @@ For the above reasons, this app is "sample".
 2. Add, modify and delete items freely below the item "select".
 3. For added items to be sync, please modify the code of function lapItemCopy (copy) and lapItemComp (compare).
 
-### app (WatchRealmSync, WatchRealmSyncWatchApp Extension)
+### WatchRealmSync and WatchRealmSyncWatchApp Extension
 1. It is based on normal (iOS/watchOS) Realm app programming.
 2. When using Realm notification (addNotificationBlock), register token in sync mechanism. See "InterfaceController.swift".
  * Token acquisition : `notificationToken = laps.addNotificationBlock {`

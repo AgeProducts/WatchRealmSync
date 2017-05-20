@@ -30,13 +30,10 @@ class InterfaceController: WKInterfaceController {
         notificationToken = laps.addNotificationBlock { [weak self] (changes: RealmCollectionChange) in
             guard let wself = self else { return }
             
-            let realm2 = try! Realm()
-            let laps2 = realm2.objects(Lap.self).sorted(byKeyPath: "usertime", ascending:false)
-            
             switch changes {
             case .initial:
-                wself.displayTable.setNumberOfRows(laps2.count, withRowType: "default")
-                laps2.enumerated().forEach { index, item in
+                wself.displayTable.setNumberOfRows(wself.laps.count, withRowType: "default")
+                wself.laps.enumerated().forEach { index, item in
                     wself.setTableContents(lap: item)
                 }
                 break
@@ -44,11 +41,11 @@ class InterfaceController: WKInterfaceController {
             case .update(_, let deletions, let insertions, let modifications):
                 // NSLog("deleted: \(deletions) : \(deletions.count), inserted: \(insertions) : \(insertions.count), modification: \(modifications) : \(modifications.count)")
                 
-                if deletions.isEmpty == false && insertions.isEmpty == false {
+                if deletions.isEmpty == true && insertions.isEmpty == true {
                     wself.applyChangeset(deleted:deletions, inserted:insertions, updated:modifications)
                 } else {
-                    wself.displayTable.setNumberOfRows(laps2.count, withRowType: "default")
-                    laps2.enumerated().forEach { index, item in
+                    wself.displayTable.setNumberOfRows(wself.laps.count, withRowType: "default")
+                    wself.laps.enumerated().forEach { index, item in
                         wself.setTableContents(lap: item)
                     }
                 }

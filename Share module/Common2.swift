@@ -102,12 +102,7 @@ class Common2 : NSObject, WatchIPhoneConnectDelegate {
                 case .update( _, let deletions, let insertions, let modifications):
                     // NSLog("deleted: \(deletions) : \(deletions.count), inserted: \(insertions) : \(insertions.count), updated: \(modifications) : \(modifications.count)")
                     
-                    let inWriteTransaction = realm.isInWriteTransaction
-//                    if inWriteTransaction == true {
-//                        NSLog("realm.isInWriteTransaction")
-//                        // return
-//                    }
-                    
+                    let inWriteTransaction = realm.isInWriteTransaction                    
                     if insertions.isEmpty == false {
                         var updateArray = [Lap]()
                         if inWriteTransaction == false {
