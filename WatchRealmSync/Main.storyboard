@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="WcY-qb-h1c">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="WcY-qb-h1c">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -28,7 +27,7 @@
             </objects>
             <point key="canvasLocation" x="437" y="408"/>
         </scene>
-        <!--Laps-->
+        <!--View Controller-->
         <scene sceneID="a6N-Ca-nv4">
             <objects>
                 <viewController storyboardIdentifier="ViewController" id="YVe-4b-3rP" customClass="ViewController" customModule="WatchRealmSync" sceneMemberID="viewController">
@@ -102,19 +101,25 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Laps" id="jFi-RK-D49">
-                        <leftBarButtonItems>
-                            <barButtonItem systemItem="add" id="p1A-1o-I0K"/>
-                            <barButtonItem systemItem="trash" id="GvY-5f-0CZ"/>
-                        </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="EjK-r3-ZDT"/>
+                    <navigationItem key="navigationItem" id="jFi-RK-D49">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="trash" id="GvY-5f-0CZ"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hnu-zw-JIE">
+                            <rect key="frame" x="112.5" y="7" width="150" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" title="99/99/99">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="p1A-1o-I0K"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addButton" destination="p1A-1o-I0K" id="PFc-47-NNG"/>
-                        <outlet property="composeButton" destination="EjK-r3-ZDT" id="Sti-lk-d7o"/>
                         <outlet property="delAllButton" destination="jvN-EB-Vy7" id="bAn-nV-vIl"/>
                         <outlet property="make10dButton" destination="GlE-ds-ilI" id="kVr-9C-Vxq"/>
+                        <outlet property="numberButton" destination="hnu-zw-JIE" id="g63-DI-SH3"/>
                         <outlet property="reloadButton" destination="6X3-de-rME" id="PSo-0N-rgO"/>
                         <outlet property="tableView" destination="qxX-wD-rRB" id="Xd5-6a-q5a"/>
                         <outlet property="trashButton" destination="GvY-5f-0CZ" id="eah-LN-dTP"/>

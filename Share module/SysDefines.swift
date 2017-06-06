@@ -29,15 +29,14 @@ let UD_LOADED_ONCE_PREVIOS  = "UD_LOADED_ONCEv1.0"
 /* REALM DB */
 let WATCH_TRAN_REALM        = "WatchTrans.realm"
 
-/* Update Transaction / Polling Delay (sec) */
-let UpdateDelayTimer = 0.5
-let PollingDelayTimer = 10.0
-
 /* notification */
 let WCSessionReachabilityDidChangeNotification =  "ReachabilityDidChangeNotification"
 let WCSessionWatchStateDidChangeNotification =    "WatchStateDidChangeNotification"
 
 /* setting date (month) */
-let MakeSimulationMonth = 1
-let IPhoneViewMonth = 1
-let WatchViewMonth = 1
+let SIMULATE_TARGET_DATE = (31*12)
+let IPHONE_SHOW_DATE = SIMULATE_TARGET_DATE
+let WATCH_SHOW_DATE = SIMULATE_TARGET_DATE
+
+/* Sync on boot apps */
+let SYNC_BOOT = true

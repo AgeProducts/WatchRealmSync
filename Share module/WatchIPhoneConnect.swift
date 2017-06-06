@@ -13,12 +13,14 @@ import RealmSwift
 
 protocol WatchIPhoneConnectDelegate: class {
     func receiveTransFile(file: WCSessionFile)
-    func receiveRQSSendAll()
-    func receiveWakeup() -> String
+    func receiveRQSSyncDigest(userInfo: [String : Any])
+    func receiveRQSSendItems(userInfo: [String : Any])
+    func receiveRQSSyncAll()
+    func receiveRQSDeleteAll()
 }
 
 class WatchIPhoneConnect:NSObject, WCSessionDelegate {
-
+    
     var IsSupport = false
     var IsReachable = false
     var IsPaired = false
@@ -35,21 +37,15 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
     }
     
     func WatchIPhoneConnectInit() {
-        #if BACKGROUND
-            if watchSupport()==true {
-                NSLog("Watch connection Supported.")
-            } else {
-                fatalError("Watch connection: not Supported! error.")
-            }
-        #else
-            if watchSupport()==true {
-                let session = WCSession.default()
-                session.delegate = self
-                session.activate()
-            } else {
-                fatalError("Watch connection : not Supported! error.")
-            }
-        #endif
+    #if os(iOS) || !BACKGROUND
+        if watchSupport()==true {
+            let session = WCSession.default()
+            session.delegate = self
+            session.activate()
+        } else {
+            fatalError("Watch connection : not Supported! error.")
+        }
+    #endif
     }
     
     func sessionReachabilityDidChange(_ session: WCSession) {
@@ -80,16 +76,16 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
             return
         }
         _ = watchSessionActivationState()
-//        var status = ""
-//        if sessionActivationState == .activated {
-//            status = "Activated"
-//        } else if sessionActivationState == .inactive {
-//            status = "Inactive"
-//        } else if sessionActivationState == .notActivated {
-//            status = "NotActivated"
-//        } else {
-//            status = "UnKnown"
-//        }
+        var status = ""
+        if sessionActivationState == .activated {
+            status = "Activated"
+        } else if sessionActivationState == .inactive {
+            status = "Inactive"
+        } else if sessionActivationState == .notActivated {
+            status = "NotActivated"
+        } else {
+            status = "UnKnown"
+        }
 //        NSLog("session activation: \(status)")
         #if os(iOS)
         _ = watchIsPaired()
@@ -97,7 +93,6 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
     }
     
     // Connection Status
-    
     func watchSupport() -> Bool {
         IsSupport = WCSession.isSupported()
         return IsSupport
@@ -129,55 +124,36 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
         sessionActivationState = WCSession.default().activationState
         return sessionActivationState
     }
-
-    // SendMessage
-
-    let sendMessageTimeout = 10.0
-    func sendMessage(_ command:String, replyHandler: (([String : Any]) -> Swift.Void)? = nil) {
-
-        let timeOutWorkItem = DispatchWorkItem() {
-            (replyHandler?(["SendMessageReply":"No Response."]))
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + sendMessageTimeout, execute: timeOutWorkItem)
-        WCSession.default().sendMessage(["command":command], replyHandler: {
-            replyDict in
-            timeOutWorkItem.cancel()
-            (replyHandler?(["SendMessageReply":replyDict["reply"] as! String]))
-        }, errorHandler: {
-            error in
-            timeOutWorkItem.cancel()
-            (replyHandler?(["SendMessageReply":"error:\(error)"]))
-        })
-    }
     
-    func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
-        guard let command = message["command"] as? String else {
-            replyHandler(["reply":"NACK:Error"])
+    // Transfer User Info Data
+    func transferUserInfo(_ command:String, addInfo:[Any]) {
+        
+        let infoDic:[String:Any] = makeMessageCommon(command, addInfo:addInfo)
+        if infoDic.isEmpty == true {
+            NSLog("infoDic error:\(String(describing: infoDic))")
             return
         }
-        if command == "sendWakeUp$$" {
-            let retMsg = self.delegate?.receiveWakeup()
-            replyHandler(["reply":String(format:"ACK:%@ %@",command, retMsg!)])
-        } else {
-            replyHandler(["reply":String(format:"NACK:%@",command)])
-        }
-    }
-
-    // Transfer User Info Data
- 
-    func transferUserInfo(_ command:String) {
-        WCSession.default().transferUserInfo(["command":command])
+        WCSession.default().transferUserInfo(infoDic)
     }
     
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
+        let className = String(describing: type(of: userInfo as Any))
         guard let command = userInfo["command"] as? String else { return }
-        if command == "requestSendAll$$" {
-            self.delegate?.receiveRQSSendAll()
+        switch command {
+        case "requestSyncAll$$":
+            self.delegate?.receiveRQSSyncAll()
+        case "sendSyncDigest$$":
+            self.delegate?.receiveRQSSyncDigest(userInfo:userInfo)
+        case "requestSendItems$$":
+            self.delegate?.receiveRQSSendItems(userInfo:userInfo)
+        case "requestDeleteAll$$":
+            self.delegate?.receiveRQSDeleteAll()
+        default:
+            assertionFailure("Receive userInfo command error: \(command)")
         }
     }
-
-    // Transfer Files
     
+    // Transfer Files
     func transferFile(_ fileUrl:URL, command:String) {
         WCSession.default().transferFile(fileUrl, metadata: ["command":command])
     }
@@ -196,9 +172,43 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
     
     func session(_ session: WCSession, didReceive file: WCSessionFile) {
         guard let command = file.metadata?["command"] as? String else { return }
-        if command == "sendTransFile$$" {
+        switch command {
+        case "sendTransFile$$":
             self.delegate?.receiveTransFile(file: file)
+        default:
+            assertionFailure("Receive transferFile command error: \(command)")
         }
+    }
+    
+    // make args
+    fileprivate func makeMessageCommon(_ command:String, addInfo:[Any]) -> Dictionary<String,Any>  {
+        if command.hasSuffix("$$")==false {
+            NSLog("command format error: %@",command);
+            return [:]
+        }
+        var infoDic = ["command":command as Any]            // Xcommand$$ = [command]
+        infoDic[command] = Date() as Any?                   // timestamp = [Xcommand$$]
+        
+        addInfo.enumerated().forEach { index, addObj in
+            let className = String(describing: type(of: addObj as Any)).lowercased()
+            if className.hasPrefix("string") == true {
+                infoDic[command + String(format:"String%02d",index)] = addObj     // e,g, string = [Xcommand$$String0n]
+            } else if className.hasPrefix("array") == true {
+                infoDic[command + String(format:"Array%02d",index)] = addObj
+            } else if className.hasPrefix("data") == true {
+                infoDic[command + String(format:"Data%02d",index)] = addObj
+            } else if className.hasPrefix("number") == true {
+                infoDic[command + String(format:"Number%02d",index)] = addObj
+            } else if className.hasPrefix("date") == true {
+                infoDic[command + String(format:"Date%02d",index)] = addObj
+            } else if className.hasPrefix("dictionary") == true {
+                infoDic[command + String(format:"Dictionary%02d",index)] = addObj
+            } else {
+//                NSLog("addInfo Unsupport class: \(String(describing: type(of: addObj as Any)))")
+                assertionFailure("addInfo Unsupport class: \(String(describing: type(of: addObj as Any)))")
+            }
+        }
+        return infoDic
     }
 }
 

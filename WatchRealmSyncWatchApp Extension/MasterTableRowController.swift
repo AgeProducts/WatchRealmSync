@@ -4,7 +4,6 @@
 //
 //  Created by Takuji Hori on 2016/10/11.
 //  Copyright © 2016 AgePro. All rights reserved.
-//
 
 // import Foundation
 import WatchKit
@@ -12,7 +11,5 @@ import WatchKit
 class MasterTableRowController : NSObject  {
     @IBOutlet var selectSeparator: WKInterfaceSeparator!
     @IBOutlet var titleLabel: WKInterfaceLabel!
-    @IBOutlet var todayCountLabel: WKInterfaceLabel!
-    @IBOutlet var thisTimeLabel: WKInterfaceLabel!
-    @IBOutlet var todayTimeLabel: WKInterfaceLabel!
+    @IBOutlet var timeLabel: WKInterfaceLabel!
 }

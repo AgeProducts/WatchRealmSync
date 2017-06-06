@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		424754F91E54D95B008CAD9C /* WatchIPhoneConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5CA1E5163460003FE1C /* WatchIPhoneConnect.swift */; };
 		424754FA1E54D95C008CAD9C /* WatchIPhoneConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5CA1E5163460003FE1C /* WatchIPhoneConnect.swift */; };
-		424754FB1E54DC11008CAD9C /* Common2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5C21E5163460003FE1C /* Common2.swift */; };
-		424754FC1E54DC12008CAD9C /* Common2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5C21E5163460003FE1C /* Common2.swift */; };
+		424754FB1E54DC11008CAD9C /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5C21E5163460003FE1C /* Common.swift */; };
+		424754FC1E54DC12008CAD9C /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5C21E5163460003FE1C /* Common.swift */; };
 		424E64491E5620FC00E44B4B /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424E64481E5620FC00E44B4B /* ExtensionDelegate.swift */; };
+		4285285C1EE2A7BC003F45B4 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2BAD5C01E5162340003FE1C /* Interface.storyboard */; };
 		42883D511E52857900EC4EE3 /* SupportLibs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42883D501E52857900EC4EE3 /* SupportLibs.swift */; };
 		42883D521E52857900EC4EE3 /* SupportLibs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42883D501E52857900EC4EE3 /* SupportLibs.swift */; };
 		42D05FB21E5175B7007754D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D05FB11E5175B7007754D8 /* ViewController.swift */; };
@@ -85,7 +86,10 @@
 		22006D404F2AF4E330E51F2F /* Pods-WatchRealmSyncWatchApp Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatchRealmSyncWatchApp Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-WatchRealmSyncWatchApp Extension/Pods-WatchRealmSyncWatchApp Extension.release.xcconfig"; sourceTree = "<group>"; };
 		3897BDFB569A331348D190E6 /* Pods_WatchRealmSyncWatchApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WatchRealmSyncWatchApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		424E64481E5620FC00E44B4B /* ExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		4270E05C1EE6BFDE0000C357 /* Demo2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Demo2.gif; sourceTree = "<group>"; };
+		4285285A1EE2839F003F45B4 /* WatchRealmSync-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "WatchRealmSync-Bridging-Header.h"; path = "Share module/WatchRealmSync-Bridging-Header.h"; sourceTree = "<group>"; };
 		42883D501E52857900EC4EE3 /* SupportLibs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SupportLibs.swift; path = "Share module/SupportLibs.swift"; sourceTree = "<group>"; };
+		42C3D74B1ED2C16B00CD0796 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		42D05FB11E5175B7007754D8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		42D05FB31E5176D0007754D8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		6DED9D65A6E8E852CD0B55D3 /* Pods-WatchRealmSyncWatchApp Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatchRealmSyncWatchApp Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WatchRealmSyncWatchApp Extension/Pods-WatchRealmSyncWatchApp Extension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -104,7 +108,7 @@
 		A2BAD5951E515E3F0003FE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A2BAD5BE1E5162130003FE1C /* MasterTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterTableRowController.swift; sourceTree = "<group>"; };
 		A2BAD5C01E5162340003FE1C /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
-		A2BAD5C21E5163460003FE1C /* Common2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common2.swift; path = "Share module/Common2.swift"; sourceTree = "<group>"; };
+		A2BAD5C21E5163460003FE1C /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common.swift; path = "Share module/Common.swift"; sourceTree = "<group>"; };
 		A2BAD5C51E5163460003FE1C /* Lap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lap.swift; path = "Share module/Lap.swift"; sourceTree = "<group>"; };
 		A2BAD5C91E5163460003FE1C /* SysDefines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SysDefines.swift; path = "Share module/SysDefines.swift"; sourceTree = "<group>"; };
 		A2BAD5CA1E5163460003FE1C /* WatchIPhoneConnect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchIPhoneConnect.swift; path = "Share module/WatchIPhoneConnect.swift"; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 		A2BAD55C1E515E210003FE1C = {
 			isa = PBXGroup;
 			children = (
+				42C3D74B1ED2C16B00CD0796 /* README.md */,
+				4270E05C1EE6BFDE0000C357 /* Demo2.gif */,
 				A2BAD5A11E515E4C0003FE1C /* Share module */,
 				A2BAD5671E515E210003FE1C /* WatchRealmSync */,
 				A2BAD57F1E515E3E0003FE1C /* WatchRealmSyncWatchApp */,
@@ -213,11 +219,12 @@
 		A2BAD5A11E515E4C0003FE1C /* Share module */ = {
 			isa = PBXGroup;
 			children = (
-				A2BAD5C21E5163460003FE1C /* Common2.swift */,
+				A2BAD5C21E5163460003FE1C /* Common.swift */,
 				42883D501E52857900EC4EE3 /* SupportLibs.swift */,
 				A2BAD5C51E5163460003FE1C /* Lap.swift */,
 				A2BAD5C91E5163460003FE1C /* SysDefines.swift */,
 				A2BAD5CA1E5163460003FE1C /* WatchIPhoneConnect.swift */,
+				4285285A1EE2839F003F45B4 /* WatchRealmSync-Bridging-Header.h */,
 			);
 			name = "Share module";
 			sourceTree = "<group>";
@@ -372,6 +379,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4285285C1EE2A7BC003F45B4 /* Interface.storyboard in Resources */,
 				A2BAD5941E515E3F0003FE1C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -507,7 +515,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2BAD5D31E5163460003FE1C /* Lap.swift in Sources */,
-				424754FB1E54DC11008CAD9C /* Common2.swift in Sources */,
+				424754FB1E54DC11008CAD9C /* Common.swift in Sources */,
 				42D05FB21E5175B7007754D8 /* ViewController.swift in Sources */,
 				424754F91E54D95B008CAD9C /* WatchIPhoneConnect.swift in Sources */,
 				A2BAD5D91E5163460003FE1C /* SysDefines.swift in Sources */,
@@ -525,7 +533,7 @@
 				424E64491E5620FC00E44B4B /* ExtensionDelegate.swift in Sources */,
 				424754FA1E54D95C008CAD9C /* WatchIPhoneConnect.swift in Sources */,
 				42883D521E52857900EC4EE3 /* SupportLibs.swift in Sources */,
-				424754FC1E54DC12008CAD9C /* Common2.swift in Sources */,
+				424754FC1E54DC12008CAD9C /* Common.swift in Sources */,
 				A2BAD5DA1E5163460003FE1C /* SysDefines.swift in Sources */,
 				A2BAD5901E515E3F0003FE1C /* InterfaceController.swift in Sources */,
 			);
@@ -660,10 +668,10 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = WatchRealmSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"DEBUG\" \"-D\" \"BACKGROUND\"";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"DEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.YourCompany.WatchRealmSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Share module/WatchRealmSync-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -679,10 +687,10 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = WatchRealmSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"BACKGROUND\"";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.YourCompany.WatchRealmSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Share module/WatchRealmSync-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -698,12 +706,12 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "WatchRealmSyncWatchApp Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"DEBUG\" \"-D\" \"BACKGROUND\"";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"DEBUG\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.YourCompany.WatchRealmSync.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Share module/WatchRealmSync-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -721,12 +729,12 @@
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "WatchRealmSyncWatchApp Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"BACKGROUND\"";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.YourCompany.WatchRealmSync.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Share module/WatchRealmSync-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 3.2;

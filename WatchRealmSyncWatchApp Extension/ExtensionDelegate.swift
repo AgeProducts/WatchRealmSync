@@ -14,6 +14,10 @@ import WatchConnectivity
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
     
     #if BACKGROUND
+    /* Now, BACKGROUND is not used.
+     If you want to use, target WatchRealmSyncWatchApp Extension
+     [Other Swift Flag] add "-D" "BACKGROUND".
+     */
     var wcBackgroundTasks: [WKWatchConnectivityRefreshBackgroundTask]
     override init() {
         wcBackgroundTasks = []
@@ -25,7 +29,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         Here we add KVO on the session properties that this class is interested in before activating
         the session to ensure that we do not miss any value change events
         */
-        defaultSession.addObserver(self, forKeyPath: "activationState", options: [], context: nil)
+        defaultSession.addObserver(self, forKeyPath: "activationState", options: [], context: nil)      // ??
         defaultSession.addObserver(self, forKeyPath: "hasContentPending", options: [], context: nil)
         defaultSession.activate()
     }
@@ -41,11 +45,14 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
         NSLog("handle handle(_ backgroundTasks \(backgroundTasks)")
         for backgroundTask in backgroundTasks {
+    
             if let wcBackgroundTask = backgroundTask as? WKWatchConnectivityRefreshBackgroundTask {
                 // store a reference to the task objects as we might have to wait to complete them
                 self.wcBackgroundTasks.append(wcBackgroundTask)
+                NSLog("add BackGround: \(wcBackgroundTask)")
             } else {
                 // immediately complete all other task types as we have not added support for them
+                NSLog("NOT BackGround: \(wcBackgroundTasks)")
                 backgroundTask.setTaskCompleted()
             }
         }
@@ -58,31 +65,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         if session.activationState == .activated && !session.hasContentPending {
             wcBackgroundTasks.forEach { $0.setTaskCompleted() }
             wcBackgroundTasks.removeAll()
-        }
-    }
-    #else
-    func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
-        // Sent when the system needs to launch the application in the background to process tasks. Tasks arrive in a set, so loop through and process each one.
-        NSLog("handle handle(_ backgroundTasks \(backgroundTasks)")
-        for task in backgroundTasks {
-            // Use a switch statement to check the task type
-            switch task {
-            case let backgroundTask as WKApplicationRefreshBackgroundTask:
-                // Be sure to complete the background task once you’re done.
-                backgroundTask.setTaskCompleted()
-            case let snapshotTask as WKSnapshotRefreshBackgroundTask:
-                // Snapshot tasks have a unique completion call, make sure to set your expiration date
-                snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
-            case let connectivityTask as WKWatchConnectivityRefreshBackgroundTask:
-                // Be sure to complete the connectivity task once you’re done.
-                connectivityTask.setTaskCompleted()
-            case let urlSessionTask as WKURLSessionRefreshBackgroundTask:
-                // Be sure to complete the URL session task once you’re done.
-                urlSessionTask.setTaskCompleted()
-            default:
-                // make sure to complete unhandled task types
-                task.setTaskCompleted()
-            }
         }
     }
     #endif

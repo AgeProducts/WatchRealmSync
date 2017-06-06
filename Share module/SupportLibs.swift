@@ -9,6 +9,26 @@
 import UIKit
 import RandomKit
 
+class Crypto {
+
+    static  func MD5(input:Any) -> String {
+        let className = String(describing: type(of: input))
+        var data = Data()
+        if className == "String" {
+            data = (input as! String).data(using: .utf8)!
+        } else if className == "Data" {
+            data = input as! Data
+        } else {
+            data = (input as AnyObject).description.data(using: .utf8)!
+        }
+        let length = Int(CC_MD5_DIGEST_LENGTH)
+        var digest = [UInt8](repeating: 0, count: length)
+        _ = data.withUnsafeBytes { CC_MD5($0, CC_LONG(data.count), &digest) }
+        let crypt = digest.map { String(format: "%02x", $0) }.joined(separator: "")
+        return crypt
+    }
+}
+
 class DateHelper {
     
     static func onceUponATime() -> Date {
@@ -162,6 +182,31 @@ public class FileHelper {
             return 0
         }
     }
+    
+    static func readFileWithData(path: String) -> Data! {
+        if fileExists(path: path) == false {
+            return nil
+        }
+        guard let fileHandle = FileHandle(forReadingAtPath: path) else {
+            return nil
+        }
+        
+        let data = fileHandle.readDataToEndOfFile()
+        fileHandle.closeFile()
+        return data
+    }
+    
+    static func readFileWithImage(path: String) -> UIImage! {
+        guard let data = readFileWithData(path: path) else {
+            print("File read error")
+            return nil
+        }
+        guard let imageData = UIImage.init(data: data, scale: 1.0) else {
+            print("UIImage convert error")
+            return nil
+        }
+        return imageData
+    }
 }
 
 
@@ -178,10 +223,8 @@ class RandomMaker {
     static func randomNumIntegerWithLimits(lower:Int, upper:Int) -> Int {
         if upper < lower {
             return -1
-        }else {
-            let band = upper - lower + 1
-            return Int(arc4random_uniform(UInt32(band))) + lower
         }
+        return Int(arc4random_uniform(UInt32(upper) - UInt32(lower)) + UInt32(lower))
     }
     
     static func randomStringWithLength(_ len:Int) -> String {
@@ -200,7 +243,7 @@ class RandomMaker {
     }
     
     static func randomNihonngoStringWithLength(_ len:Int) -> String {
-        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789雨にもまけず風にもまけず雪にも夏の暑さにもまけぬ丈夫なからだをもち欲はなく決して怒らずいつもしずかにわらっている一日に玄米四合と味噌と少しの野菜をたべあらゆることをじぶんをかんじょうに入れずによくみききしわかりそしてわすれず野原の松の林の蔭の小さな萓ぶきの小屋にいて東に病気のこどもあれば行って看病してやり西につかれた母あれば行ってその稲の束を負い南に死にそうな人あれば行ってこわがらなくてもいいといい北にけんかやそしょうがあればつまらないからやめろといいひでりのときはなみだをながしさむさのなつはオロオロあるきみんなにデクノボーとよばれほめられもせずくにもされずそういうものにわたしはなりたい"
         var result:String = ""
         if len <= 0 {
             NSLog ("randomStringWithLength: error length 0 error");
@@ -221,7 +264,6 @@ class RandomMaker {
 }
 
 extension String {
-    
     func stringByAppendingPathComponent(path: String) -> String {
         let nsSt = self as NSString
         return nsSt.appendingPathComponent(path)
@@ -239,6 +281,15 @@ extension UIColor {
         )
     }
 }
+
+let yearformatter: DateFormatter = {
+    let f = DateFormatter()
+    f.dateFormat = "yy/M/dd"
+    // f.dateFormat = "yy/MM/dd"
+    // f.dateStyle = .none
+    // f.timeStyle = .short
+    return f
+}()
 
 let dateformatter: DateFormatter = {
     let f = DateFormatter()
