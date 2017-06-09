@@ -70,6 +70,13 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
     }
     
     func loadDefault() {
+        
+        #if os(iOS)
+        if WatchConnectInstance.watchAppInstalled() == false {
+            assertionFailure("NOT watchAppInstalled: \(WatchConnectInstance.watchAppInstalled())")
+        }
+        #endif
+        
         let transDBPath = FileHelper.temporaryDirectoryWithFileName(fileName: WATCH_TRAN_REALM)
         if FileHelper.fileExists(path: transDBPath) == true {
             _ = FileHelper.removeFilePath(path: transDBPath)
@@ -202,11 +209,13 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
         let laps = realm.objects(Lap.self)
         if laps.isEmpty == false {
             laps.forEach { item in
-                let digest = LapDigest()
-                digest.identifier = item.identifier
-                digest.modifyDate = item.modifyDate
-                digest.digestString = lapItemDigest(lap: item)
-                digestList.append(digest)
+                autoreleasepool {
+                    let digest = LapDigest()
+                    digest.identifier = item.identifier
+                    digest.modifyDate = item.modifyDate
+                    digest.digestString = lapItemDigest(lap: item)
+                    digestList.append(digest)
+                }
             }
         } else {
             let digest = LapDigest()
@@ -245,24 +254,28 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
         digestList.forEach { recievedItem in
             allRecievedItemIds.append(recievedItem.identifier)
             if let item = laps.filter("identifier == '\(recievedItem.identifier)'").first {
-                /* Item found. */
-                if recievedItem.modifyDate > item.modifyDate {              /* normal item */
-                    requestItemIDs.append(item.identifier)
-                } else if recievedItem.modifyDate < item.modifyDate {
-                    updateItems.append(item.identifier)
-                } else {
-                    if recievedItem.digestString != lapItemDigest(lap: item) {
-                        NSLog("Copy item iOS -> Watch @Same id and modtime.　recieve \(recievedItem.digestString) lap \(lapItemDigest(lap: item))")
-                        if iOS == true {
-                            updateItems.append(item.identifier)
-                        } else {
-                            requestItemIDs.append(item.identifier)
+                autoreleasepool {
+                    /* Item found. */
+                    if recievedItem.modifyDate > item.modifyDate {              /* normal item */
+                        requestItemIDs.append(item.identifier)
+                    } else if recievedItem.modifyDate < item.modifyDate {
+                        updateItems.append(item.identifier)
+                    } else {
+                        if recievedItem.digestString != lapItemDigest(lap: item) {
+                            NSLog("Copy item iOS -> Watch @Same id and modtime.　recieve \(recievedItem.digestString) lap \(lapItemDigest(lap: item))")
+                            if iOS == true {
+                                updateItems.append(item.identifier)
+                            } else {
+                                requestItemIDs.append(item.identifier)
+                            }
                         }
                     }
                 }
-            } else {                                                        /* Item not found. */
-                if recievedItem.identifier != "IgnoreIdentifierString" {
-                    requestItemIDs.append(recievedItem.identifier)
+            } else {                                                            /* Item not found. */
+                autoreleasepool {
+                    if recievedItem.identifier != "IgnoreIdentifierString" {
+                        requestItemIDs.append(recievedItem.identifier)
+                    }
                 }
             }
         }
@@ -275,8 +288,10 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
         if laps.isEmpty == false {
             var nonItems = [String]()
             laps.forEach { lap in
-                if allRecievedItemIds.index(of: lap.identifier) == nil {
-                    nonItems.append(lap.identifier)
+                autoreleasepool {
+                    if allRecievedItemIds.index(of: lap.identifier) == nil {
+                        nonItems.append(lap.identifier)
+                    }
                 }
             }
             if nonItems.isEmpty == false {
@@ -334,10 +349,12 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
         do {
             try transRealm.write {
                 items.forEach { item in
-                    let newItem = Lap()
-                    lapItemCopy(from: item, to: newItem)
-                    newItem.identifier = item.identifier
-                    transRealm.add(newItem, update:true)
+                    autoreleasepool {
+                        let newItem = Lap()
+                        newItem.identifier = item.identifier
+                        lapItemCopy(from: item, to: newItem)
+                        transRealm.add(newItem, update:true)
+                    }
                 }
             }
         }
@@ -353,11 +370,13 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
         do {
             try transRealm.write {
                 deletedIds.forEach { deletedItem in
-                    let dummyItem = Lap()
-                    dummyItem.createDate = DateHelper.onceUponATime()
-                    dummyItem.modifyDate = Date()
-                    dummyItem.identifier = deletedItem
-                    transRealm.add(dummyItem, update:true)
+                    autoreleasepool {
+                        let dummyItem = Lap()
+                        dummyItem.createDate = DateHelper.onceUponATime()
+                        dummyItem.modifyDate = Date()
+                        dummyItem.identifier = deletedItem
+                        transRealm.add(dummyItem, update:true)
+                    }
                 }
             }
         }
@@ -370,6 +389,7 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
     
     /* Send transaction */
     let UPDATE_DELAY_TIME = 0.5
+//    let ERROR_RETRY_TIME = 3.0
     var workItem:DispatchWorkItem? = nil
     
     func receiveNotification() {
@@ -442,6 +462,9 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                 let fileUrl:URL = file.fileURL
                 if FileHelper.fileExists(path: fileUrl.path) == false {
                     NSLog("Received file not found. URL error \(fileUrl.path)")
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + wself2.ERROR_RETRY_TIME) {
+//                        wself2.watchTableSyncAll()
+//                    }
                     return
                 }
                 let config = Realm.Configuration( fileURL: file.fileURL, readOnly: true)
@@ -466,44 +489,48 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                 recievedItems?.forEach { recievedItem in
                     if let item = laps.filter("identifier == '\(recievedItem.identifier)'").first {
                         /* Item found. */
-                        if recievedItem.createDate == DateHelper.onceUponATime() {
-                            if recievedItem.modifyDate >= item.modifyDate {             /* deleted item */
-                                realm.delete(item)
-                            } else if recievedItem.modifyDate < item.modifyDate {
-                                wself2.pushUpdates(updateIds:[item.identifier])
-                            }
-                        } else {
-                            if recievedItem.modifyDate > item.modifyDate {              /* normal item */
-                                lapItemCopy(from: recievedItem, to: item)
-                            } else if recievedItem.modifyDate < item.modifyDate {
-                                wself2.pushUpdates(updateIds:[item.identifier])
+                        autoreleasepool {
+                            if recievedItem.createDate == DateHelper.onceUponATime() {
+                                if recievedItem.modifyDate >= item.modifyDate {             /* deleted item */
+                                    realm.delete(item)
+                                } else if recievedItem.modifyDate < item.modifyDate {
+                                    wself2.pushUpdates(updateIds:[item.identifier])
+                                }
                             } else {
-                                if lapItemHashNumberComp(first: recievedItem, second: item) == false {
-                                    /*
-                                     * Should not come here??? It would be a bug.
-                                     * ID and Modify date are the same and the contents are different.
-                                     * In this case, take the iOS side item.
-                                     */
-                                    // assertionFailure("DEBUG!!! Same modtime but different!")
-//                                    NSLog("DEBUG!!! Same modtime but different. recieve:\(recievedItem), exist:\(item) iOS:\(iOS)")
-                                    if iOS == true {
-                                        wself2.pushUpdates(updateIds:[item.identifier])
-                                    } else {
-                                        lapItemCopy(from: recievedItem, to: item)
+                                if recievedItem.modifyDate > item.modifyDate {              /* normal item */
+                                    lapItemCopy(from: recievedItem, to: item)
+                                } else if recievedItem.modifyDate < item.modifyDate {
+                                    wself2.pushUpdates(updateIds:[item.identifier])
+                                } else {
+                                    if lapItemHashNumberComp(first: recievedItem, second: item) == false {
+                                        /*
+                                         * Should not come here??? It would be a bug.
+                                         * ID and Modify date are the same and the contents are different.
+                                         * In this case, take the iOS side item.
+                                         */
+                                        // assertionFailure("DEBUG!!! Same modtime but different!")
+                                        NSLog("DEBUG!!! Same modtime but different. recieve:\(recievedItem), exist:\(item) iOS:\(iOS)")
+                                        if iOS == true {
+                                            wself2.pushUpdates(updateIds:[item.identifier])
+                                        } else {
+                                            lapItemCopy(from: recievedItem, to: item)
+                                        }
                                     }
                                 }
                             }
                         }
                     } else {
                         /* Item not found. */
-                        if recievedItem.createDate == DateHelper.onceUponATime() ||
-                            recievedItem.identifier == "IgnoreIdentifierString" {
-                            /* NOP */
-                        } else {
-                            let newItem = Lap()
-                            lapItemCopy(from: recievedItem, to: newItem)
-                            newItem.identifier = recievedItem.identifier
-                            realm.add(newItem)
+                        autoreleasepool {
+                            if recievedItem.createDate == DateHelper.onceUponATime() ||
+                                    recievedItem.identifier == "IgnoreIdentifierString" {
+                                /* NOP */
+                            } else {
+                                let newItem = Lap()
+                                newItem.identifier = recievedItem.identifier
+                                lapItemCopy(from: recievedItem, to: newItem)
+                                realm.add(newItem)
+                            }
                         }
                     }
                 }

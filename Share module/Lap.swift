@@ -38,11 +38,16 @@ func lapItemCopy(from:Lap, to:Lap) {
     to.usertime = from.usertime
     to.textstring = from.textstring
 //    to.exchangePhoto = from.exchangePhoto
+    
+    /* Don't change! */
+    to.hashNumber = lapItemHashNumber(lap: to)
 }
 
 func lapItemDigest(lap:Lap) -> String {
     /* Don't change! */
     var digest:String = lap.identifier + "_"
+    digest += Crypto.MD5(input: lap.createDate as Any) + "_"
+    digest += Crypto.MD5(input: lap.modifyDate as Any) + "_"
     
     /* Change the following from here. */
     digest += Crypto.MD5(input: lap.select as Any) + "_"
@@ -61,6 +66,8 @@ func lapItemDigestComp(first:Lap, second:Lap) -> Bool {
 func lapItemHashNumber(lap:Lap) -> Int64 {
     /* Don't change! */
     var aHash:Int = lap.identifier.hashValue
+    aHash ^= lap.createDate.hashValue
+    aHash ^= lap.modifyDate.hashValue
     
     /* Change the following from here. */
     aHash ^= lap.select.hashValue

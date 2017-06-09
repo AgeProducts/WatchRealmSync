@@ -188,24 +188,25 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
         }
         var infoDic = ["command":command as Any]            // Xcommand$$ = [command]
         infoDic[command] = Date() as Any?                   // timestamp = [Xcommand$$]
-        
         addInfo.enumerated().forEach { index, addObj in
-            let className = String(describing: type(of: addObj as Any)).lowercased()
-            if className.hasPrefix("string") == true {
-                infoDic[command + String(format:"String%02d",index)] = addObj     // e,g, string = [Xcommand$$String0n]
-            } else if className.hasPrefix("array") == true {
-                infoDic[command + String(format:"Array%02d",index)] = addObj
-            } else if className.hasPrefix("data") == true {
-                infoDic[command + String(format:"Data%02d",index)] = addObj
-            } else if className.hasPrefix("number") == true {
-                infoDic[command + String(format:"Number%02d",index)] = addObj
-            } else if className.hasPrefix("date") == true {
-                infoDic[command + String(format:"Date%02d",index)] = addObj
-            } else if className.hasPrefix("dictionary") == true {
-                infoDic[command + String(format:"Dictionary%02d",index)] = addObj
-            } else {
-//                NSLog("addInfo Unsupport class: \(String(describing: type(of: addObj as Any)))")
-                assertionFailure("addInfo Unsupport class: \(String(describing: type(of: addObj as Any)))")
+            autoreleasepool {
+                let className = String(describing: type(of: addObj as Any)).lowercased()
+                if className.hasPrefix("string") == true {
+                    infoDic[command + String(format:"String%02d",index)] = addObj     // e,g, string = [Xcommand$$String0n]
+                } else if className.hasPrefix("array") == true {
+                    infoDic[command + String(format:"Array%02d",index)] = addObj
+                } else if className.hasPrefix("data") == true {
+                    infoDic[command + String(format:"Data%02d",index)] = addObj
+                } else if className.hasPrefix("number") == true {
+                    infoDic[command + String(format:"Number%02d",index)] = addObj
+                } else if className.hasPrefix("date") == true {
+                    infoDic[command + String(format:"Date%02d",index)] = addObj
+                } else if className.hasPrefix("dictionary") == true {
+                    infoDic[command + String(format:"Dictionary%02d",index)] = addObj
+                } else {
+//                  NSLog("addInfo Unsupport class: \(String(describing: type(of: addObj as Any)))")
+                    assertionFailure("addInfo Unsupport class: \(String(describing: type(of: addObj as Any)))")
+                }
             }
         }
         return infoDic
