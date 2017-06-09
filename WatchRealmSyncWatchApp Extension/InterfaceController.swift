@@ -125,7 +125,7 @@ class InterfaceController: WKInterfaceController {
                         let lap = Lap()
                         lap.usertime = RandomMaker.randomDate3(simulationFirstDate, lastDate: simulationLastDate)!
                         lap.textstring = "W> " + RandomMaker.randomNihonngoStringWithLength(16)
-                        lap.select = RandomMaker.randomNumIntegerWithLimits(lower: 0, upper: 2 + 1) == 0 ? true : false   // select 33%
+                        lap.select = RandomMaker.randomBool(percent:33.3)   // select 1/3
                         realm2.add(lap)
                     }
                 }
@@ -151,7 +151,7 @@ class InterfaceController: WKInterfaceController {
     @IBAction func addButtonAct() {
         WKInterfaceDevice.current().play(hapticSuccess)
         let lap = Lap()
-        lap.textstring = "W> New Text"
+        lap.textstring = "W> 新てきすと"
         try! realm.write {
             realm.add(lap)
         }

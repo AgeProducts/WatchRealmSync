@@ -73,7 +73,7 @@ class ViewController: UIViewController {
             .subscribe(onNext: { [weak self] in
                 guard let wself = self else { return }
                 let lap = Lap()
-                lap.textstring = "I> 新てきすと"
+                lap.textstring = "I> New Text"
                 try! wself.realm.write {
                     wself.realm.add(lap)
                 }
@@ -157,8 +157,7 @@ class ViewController: UIViewController {
                         let lap = Lap()
                         lap.usertime = RandomMaker.randomDate3(simulationFirstDate, lastDate: simulationLastDate)!
                         lap.textstring = "I> " + RandomMaker.randomStringWithLength(16)
-                        lap.select = RandomMaker.randomNumIntegerWithLimits(lower: 0, upper: 2 + 1) == 0 ? true : false   // select 33%
-                        
+                        lap.select = RandomMaker.randomBool(percent:33.3)   // select 1/3
                         realm2.add(lap)
                     }
                 }

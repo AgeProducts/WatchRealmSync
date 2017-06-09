@@ -94,7 +94,7 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                     let inWriteTransaction = realm.isInWriteTransaction
                     if inWriteTransaction == true {
                         NSLog("Realm isInWriteTransaction!")
-                        //                   return
+    //                   return
                     }
                     if insertions.isEmpty == false {
                         if inWriteTransaction == false {
@@ -104,10 +104,10 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                         insertions.forEach { index in
                             if index >= laps.count { return }
                             let lap = laps[index]
-                            let digest = lapItemDigest(lap:lap)
-                            if lap.itemDigest != digest {
+                            let hashNumber = lapItemHashNumber(lap:lap)
+                            if lap.hashNumber != hashNumber {
                                 lap.modifyDate = Date()
-                                lap.itemDigest = digest
+                                lap.hashNumber = hashNumber
                                 updateItems.append(lap.identifier)
                             }
                         }
@@ -132,10 +132,10 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                         modifications.forEach { index in
                             if index >= laps.count { return }
                             let lap = laps[index]
-                            let digest = lapItemDigest(lap:lap)
-                            if lap.itemDigest != digest {
+                            let hashNumber = lapItemHashNumber(lap:lap)
+                            if lap.hashNumber != hashNumber {
                                 lap.modifyDate = Date()
-                                lap.itemDigest = digest
+                                lap.hashNumber = hashNumber
                                 updateItems.append(lap.identifier)
                             }
                         }
@@ -205,7 +205,7 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                 let digest = LapDigest()
                 digest.identifier = item.identifier
                 digest.modifyDate = item.modifyDate
-                digest.digestString = item.itemDigest
+                digest.digestString = lapItemDigest(lap: item)
                 digestList.append(digest)
             }
         } else {
@@ -478,8 +478,7 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                             } else if recievedItem.modifyDate < item.modifyDate {
                                 wself2.pushUpdates(updateIds:[item.identifier])
                             } else {
-                                if lapItemDigestComp(first: recievedItem, second: item) == false {
-                                    // if lapItemComp(first: recievedItem, second: item) == false {
+                                if lapItemHashNumberComp(first: recievedItem, second: item) == false {
                                     /*
                                      * Should not come here??? It would be a bug.
                                      * ID and Modify date are the same and the contents are different.

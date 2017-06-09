@@ -7,25 +7,22 @@
 //
 
 import UIKit
-import RandomKit
 
 class Crypto {
 
     static  func MD5(input:Any) -> String {
         let className = String(describing: type(of: input))
         var data = Data()
-        if className == "String" {
-            data = (input as! String).data(using: .utf8)!
-        } else if className == "Data" {
-            data = input as! Data
+        if className == "Int" {
+            data = String(format: "%x", input as! Int).description.data(using: .utf8)!
         } else {
             data = (input as AnyObject).description.data(using: .utf8)!
         }
         let length = Int(CC_MD5_DIGEST_LENGTH)
         var digest = [UInt8](repeating: 0, count: length)
         _ = data.withUnsafeBytes { CC_MD5($0, CC_LONG(data.count), &digest) }
-        let crypt = digest.map { String(format: "%02x", $0) }.joined(separator: "")
-        return crypt
+        let cryptDigest = digest.map { String(format: "%02x", $0) }.joined(separator: "")
+        return cryptDigest
     }
 }
 
@@ -213,10 +210,10 @@ public class FileHelper {
 class RandomMaker {
     
     static func randomFloat(Min _Min : Float, Max _Max : Float)->Float {
-        return ( Float(arc4random_uniform(UINT32_MAX)) / Float(UINT32_MAX) ) * (_Max - _Min) + _Min
+        return (Float(arc4random_uniform(UINT32_MAX)) / Float(UINT32_MAX) ) * (_Max - _Min) + _Min
     }
     
-    static func randomDouble(Min _Min : Double, Max _Max : Double)->Double {              // DEBUG
+    static func randomDouble(Min _Min : Double, Max _Max : Double)->Double {
         return (Double(arc4random_uniform(UINT32_MAX)) / Double(UINT32_MAX) ) * (_Max - _Min) + _Min
     }
     
@@ -259,7 +256,16 @@ class RandomMaker {
     
     static func randomDate3(_ firstDate:Date?, lastDate:Date?) -> Date? {
         let interval = (lastDate?.timeIntervalSince(firstDate!))!
-        return  firstDate?.addingTimeInterval(Double.random(to: interval, using: &ARC4Random.default))
+        return  firstDate?.addingTimeInterval(randomDouble(Min : 0, Max : interval))
+    }
+    
+    static func randomBool(percent:Double) -> Bool {
+        let result = randomDouble(Min : 0, Max : 100.0)
+        if result < percent {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
@@ -284,7 +290,7 @@ extension UIColor {
 
 let yearformatter: DateFormatter = {
     let f = DateFormatter()
-    f.dateFormat = "yy/M/dd"
+    f.dateFormat = "yy/M/dd HH:mm"
     // f.dateFormat = "yy/MM/dd"
     // f.dateStyle = .none
     // f.timeStyle = .short

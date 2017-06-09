@@ -183,7 +183,7 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
     // make args
     fileprivate func makeMessageCommon(_ command:String, addInfo:[Any]) -> Dictionary<String,Any>  {
         if command.hasSuffix("$$")==false {
-            NSLog("command format error: %@",command);
+            assertionFailure("command format error: \(command)")
             return [:]
         }
         var infoDic = ["command":command as Any]            // Xcommand$$ = [command]

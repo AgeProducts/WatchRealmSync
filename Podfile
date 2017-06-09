@@ -3,7 +3,6 @@ use_frameworks!
 
 def shared_pods
   pod 'RealmSwift'
-  pod 'RandomKit'
 end
 
 target ‘WatchRealmSync’ do

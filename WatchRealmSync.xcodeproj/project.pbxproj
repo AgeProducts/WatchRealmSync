@@ -85,6 +85,7 @@
 		1AC901CDAFCE147358903C2A /* Pods_WatchRealmSyncWatchApp_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WatchRealmSyncWatchApp_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22006D404F2AF4E330E51F2F /* Pods-WatchRealmSyncWatchApp Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatchRealmSyncWatchApp Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-WatchRealmSyncWatchApp Extension/Pods-WatchRealmSyncWatchApp Extension.release.xcconfig"; sourceTree = "<group>"; };
 		3897BDFB569A331348D190E6 /* Pods_WatchRealmSyncWatchApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WatchRealmSyncWatchApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		421117C51EE8C950009DD28E /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		424E64481E5620FC00E44B4B /* ExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		4270E05C1EE6BFDE0000C357 /* Demo2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Demo2.gif; sourceTree = "<group>"; };
 		4285285A1EE2839F003F45B4 /* WatchRealmSync-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "WatchRealmSync-Bridging-Header.h"; path = "Share module/WatchRealmSync-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -161,6 +162,7 @@
 			children = (
 				42C3D74B1ED2C16B00CD0796 /* README.md */,
 				4270E05C1EE6BFDE0000C357 /* Demo2.gif */,
+				421117C51EE8C950009DD28E /* Podfile */,
 				A2BAD5A11E515E4C0003FE1C /* Share module */,
 				A2BAD5671E515E210003FE1C /* WatchRealmSync */,
 				A2BAD57F1E515E3E0003FE1C /* WatchRealmSyncWatchApp */,
