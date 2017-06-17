@@ -32,12 +32,14 @@ class InterfaceController: WKInterfaceController {
         let viewLastDate = Date()
         let viewFirstDate = DateHelper.getDateBeforeOrAfterSomeDay(baseDate:viewLastDate, day:Double(-WATCH_SHOW_DATE))
         let predicate = NSPredicate(format:"usertime >= %@", viewFirstDate as CVarArg)
-        
         laps = realm.objects(Lap.self).filter(predicate).sorted(byKeyPath: "usertime", ascending:false)
+        let predicate2 = NSPredicate(format:"usertime >= %@ && select == true", viewFirstDate as CVarArg)
+        let lapsSelect = realm.objects(Lap.self).filter(predicate2).sorted(byKeyPath: "usertime", ascending:false)
         
         notificationToken = laps.addNotificationBlock { [weak self] (changes: RealmCollectionChange) in
             guard let wself = self else { return }
-            wself.countLabel.setText(String(wself.laps.count))
+//            wself.countLabel.setText(String(wself.laps.count))
+            wself.countLabel.setText(String(format:"%d/%d",lapsSelect.count,wself.laps.count))
             
             switch changes {
             case .initial:
@@ -49,9 +51,9 @@ class InterfaceController: WKInterfaceController {
             case .update(_, let deletions, let insertions, let modifications):
 //                NSLog("Interface deleted: \(deletions) : \(deletions.count), inserted: \(insertions) : \(insertions.count), updated: \(modifications) : \(modifications.count)")
                 
-                if wself.workItem != nil {
-                    wself.workItem?.cancel()
-                }
+//                if wself.workItem != nil {
+//                    wself.workItem?.cancel()
+//                }
                 wself.workItem = DispatchWorkItem() { [weak wself] in
                     guard let wself2 = wself else { return }
                     if deletions.isEmpty == true && insertions.isEmpty == true {
@@ -78,10 +80,7 @@ class InterfaceController: WKInterfaceController {
         }
         common.realmTokens.append(self.notificationToken!)
         
-        /* init Sync All */
-        if SYNC_BOOT == true {
-            inquireSendALL()
-        }
+        inquireSendALL()
         WKInterfaceDevice.current().play(hapticSuccess)
     }
     

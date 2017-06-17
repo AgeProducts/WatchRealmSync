@@ -13,7 +13,7 @@ import RealmSwift
 
 protocol WatchIPhoneConnectDelegate: class {
     func receiveTransFile(file: WCSessionFile)
-    func receiveRQSSyncDigest(userInfo: [String : Any])
+    func receiveRQSSyncDigest(file: WCSessionFile)
     func receiveRQSSendItems(userInfo: [String : Any])
     func receiveRQSSyncAll()
     func receiveRQSDeleteAll()
@@ -37,7 +37,6 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
     }
     
     func WatchIPhoneConnectInit() {
-    #if os(iOS) || !BACKGROUND
         if watchSupport()==true {
             let session = WCSession.default()
             session.delegate = self
@@ -45,7 +44,6 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
         } else {
             fatalError("Watch connection : not Supported! error.")
         }
-    #endif
     }
     
     func sessionReachabilityDidChange(_ session: WCSession) {
@@ -77,16 +75,15 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
         }
         _ = watchSessionActivationState()
         var status = ""
-        if sessionActivationState == .activated {
+        switch sessionActivationState {
+        case .activated:
             status = "Activated"
-        } else if sessionActivationState == .inactive {
+        case .inactive:
             status = "Inactive"
-        } else if sessionActivationState == .notActivated {
+        case .notActivated:
             status = "NotActivated"
-        } else {
-            status = "UnKnown"
         }
-//        NSLog("session activation: \(status)")
+        NSLog("session activation: \(status)")
         #if os(iOS)
         _ = watchIsPaired()
         #endif
@@ -128,7 +125,7 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
     // Transfer User Info Data
     func transferUserInfo(_ command:String, addInfo:[Any]) {
         
-        let infoDic:[String:Any] = makeMessageCommon(command, addInfo:addInfo)
+        let infoDic:[String:Any] = makeMessageCommon(command:command, addInfo:addInfo)
         if infoDic.isEmpty == true {
             NSLog("infoDic error:\(String(describing: infoDic))")
             return
@@ -137,13 +134,10 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
     }
     
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
-        let className = String(describing: type(of: userInfo as Any))
         guard let command = userInfo["command"] as? String else { return }
         switch command {
         case "requestSyncAll$$":
             self.delegate?.receiveRQSSyncAll()
-        case "sendSyncDigest$$":
-            self.delegate?.receiveRQSSyncDigest(userInfo:userInfo)
         case "requestSendItems$$":
             self.delegate?.receiveRQSSendItems(userInfo:userInfo)
         case "requestDeleteAll$$":
@@ -156,10 +150,6 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
     // Transfer Files
     func transferFile(_ fileUrl:URL, command:String) {
         WCSession.default().transferFile(fileUrl, metadata: ["command":command])
-    }
-    
-    func transferFileCount() -> Int {
-        return WCSession.default().outstandingFileTransfers.count
     }
     
     func transferFileHasContentPending() -> Bool {
@@ -175,13 +165,15 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
         switch command {
         case "sendTransFile$$":
             self.delegate?.receiveTransFile(file: file)
+        case "sendDigestFile$$":
+            self.delegate?.receiveRQSSyncDigest(file: file)
         default:
             assertionFailure("Receive transferFile command error: \(command)")
         }
     }
     
     // make args
-    fileprivate func makeMessageCommon(_ command:String, addInfo:[Any]) -> Dictionary<String,Any>  {
+    private func makeMessageCommon(command:String, addInfo:[Any]) -> Dictionary<String,Any>  {
         if command.hasSuffix("$$")==false {
             assertionFailure("command format error: \(command)")
             return [:]
@@ -191,20 +183,10 @@ class WatchIPhoneConnect:NSObject, WCSessionDelegate {
         addInfo.enumerated().forEach { index, addObj in
             autoreleasepool {
                 let className = String(describing: type(of: addObj as Any)).lowercased()
-                if className.hasPrefix("string") == true {
-                    infoDic[command + String(format:"String%02d",index)] = addObj     // e,g, string = [Xcommand$$String0n]
-                } else if className.hasPrefix("array") == true {
+                switch className {
+                case _ where className.hasPrefix("array"):
                     infoDic[command + String(format:"Array%02d",index)] = addObj
-                } else if className.hasPrefix("data") == true {
-                    infoDic[command + String(format:"Data%02d",index)] = addObj
-                } else if className.hasPrefix("number") == true {
-                    infoDic[command + String(format:"Number%02d",index)] = addObj
-                } else if className.hasPrefix("date") == true {
-                    infoDic[command + String(format:"Date%02d",index)] = addObj
-                } else if className.hasPrefix("dictionary") == true {
-                    infoDic[command + String(format:"Dictionary%02d",index)] = addObj
-                } else {
-//                  NSLog("addInfo Unsupport class: \(String(describing: type(of: addObj as Any)))")
+                default:
                     assertionFailure("addInfo Unsupport class: \(String(describing: type(of: addObj as Any)))")
                 }
             }

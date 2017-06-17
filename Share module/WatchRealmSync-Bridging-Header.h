@@ -2,7 +2,7 @@
 //  WatchRealmSync-Bridging-Header.h
 //  WatchRealmSync
 //
-//  Created by 堀 卓司 on 2017/06/02.
+//  Created by Takuji Hori on 2017/06/02.
 //  Copyright © 2017年 Takuji Hori. All rights reserved.
 //
 

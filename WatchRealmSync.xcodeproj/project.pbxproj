@@ -17,6 +17,12 @@
 		42883D521E52857900EC4EE3 /* SupportLibs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42883D501E52857900EC4EE3 /* SupportLibs.swift */; };
 		42D05FB21E5175B7007754D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D05FB11E5175B7007754D8 /* ViewController.swift */; };
 		42D05FB41E5176D0007754D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42D05FB31E5176D0007754D8 /* Main.storyboard */; };
+		42DDBC4E1EF4C6BD0089874C /* Lap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DDBC4C1EF4C6BD0089874C /* Lap.swift */; };
+		42DDBC4F1EF4C6BD0089874C /* Lap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DDBC4C1EF4C6BD0089874C /* Lap.swift */; };
+		42DDBC501EF4C6BD0089874C /* SysDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DDBC4D1EF4C6BD0089874C /* SysDefines.swift */; };
+		42DDBC511EF4C6BD0089874C /* SysDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DDBC4D1EF4C6BD0089874C /* SysDefines.swift */; };
+		42DDBC561EF4C83A0089874C /* LapShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DDBC551EF4C83A0089874C /* LapShare.swift */; };
+		42DDBC571EF4C83A0089874C /* LapShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DDBC551EF4C83A0089874C /* LapShare.swift */; };
 		6F7810B79AAD25DBF7984977 /* Pods_WatchRealmSyncWatchApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3897BDFB569A331348D190E6 /* Pods_WatchRealmSyncWatchApp.framework */; };
 		A2BAD5691E515E210003FE1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5681E515E210003FE1C /* AppDelegate.swift */; };
 		A2BAD5721E515E210003FE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2BAD5711E515E210003FE1C /* Assets.xcassets */; };
@@ -28,10 +34,6 @@
 		A2BAD5981E515E3F0003FE1C /* WatchRealmSyncWatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = A2BAD57E1E515E3E0003FE1C /* WatchRealmSyncWatchApp.app */; };
 		A2BAD5BF1E5162130003FE1C /* MasterTableRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5BE1E5162130003FE1C /* MasterTableRowController.swift */; };
 		A2BAD5C11E5162340003FE1C /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2BAD5C01E5162340003FE1C /* Interface.storyboard */; };
-		A2BAD5D31E5163460003FE1C /* Lap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5C51E5163460003FE1C /* Lap.swift */; };
-		A2BAD5D41E5163460003FE1C /* Lap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5C51E5163460003FE1C /* Lap.swift */; };
-		A2BAD5D91E5163460003FE1C /* SysDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5C91E5163460003FE1C /* SysDefines.swift */; };
-		A2BAD5DA1E5163460003FE1C /* SysDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BAD5C91E5163460003FE1C /* SysDefines.swift */; };
 		A6C913F39A307BCAD3CDC3C6 /* Pods_WatchRealmSyncWatchApp_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC901CDAFCE147358903C2A /* Pods_WatchRealmSyncWatchApp_Extension.framework */; };
 		CACFC9F31C52E2B06373DD87 /* Pods_WatchRealmSync.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E2FF9ECA074580D98DEB07 /* Pods_WatchRealmSync.framework */; };
 /* End PBXBuildFile section */
@@ -93,6 +95,9 @@
 		42C3D74B1ED2C16B00CD0796 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		42D05FB11E5175B7007754D8 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		42D05FB31E5176D0007754D8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		42DDBC4C1EF4C6BD0089874C /* Lap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lap.swift; path = "Common in Project/Lap.swift"; sourceTree = "<group>"; };
+		42DDBC4D1EF4C6BD0089874C /* SysDefines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SysDefines.swift; path = "Common in Project/SysDefines.swift"; sourceTree = "<group>"; };
+		42DDBC551EF4C83A0089874C /* LapShare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LapShare.swift; path = "Share module/LapShare.swift"; sourceTree = "<group>"; };
 		6DED9D65A6E8E852CD0B55D3 /* Pods-WatchRealmSyncWatchApp Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatchRealmSyncWatchApp Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WatchRealmSyncWatchApp Extension/Pods-WatchRealmSyncWatchApp Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		9093050501E49575F01F4C3A /* Pods-WatchRealmSyncWatchApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatchRealmSyncWatchApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-WatchRealmSyncWatchApp/Pods-WatchRealmSyncWatchApp.release.xcconfig"; sourceTree = "<group>"; };
 		A2BAD5651E515E210003FE1C /* WatchRealmSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchRealmSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,8 +115,6 @@
 		A2BAD5BE1E5162130003FE1C /* MasterTableRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterTableRowController.swift; sourceTree = "<group>"; };
 		A2BAD5C01E5162340003FE1C /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		A2BAD5C21E5163460003FE1C /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Common.swift; path = "Share module/Common.swift"; sourceTree = "<group>"; };
-		A2BAD5C51E5163460003FE1C /* Lap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Lap.swift; path = "Share module/Lap.swift"; sourceTree = "<group>"; };
-		A2BAD5C91E5163460003FE1C /* SysDefines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SysDefines.swift; path = "Share module/SysDefines.swift"; sourceTree = "<group>"; };
 		A2BAD5CA1E5163460003FE1C /* WatchIPhoneConnect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WatchIPhoneConnect.swift; path = "Share module/WatchIPhoneConnect.swift"; sourceTree = "<group>"; };
 		E2AD242411A3FA1E6742127B /* Pods-WatchRealmSyncWatchApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WatchRealmSyncWatchApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WatchRealmSyncWatchApp/Pods-WatchRealmSyncWatchApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -157,6 +160,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		42DDBC4B1EF4C6A70089874C /* Common in Project */ = {
+			isa = PBXGroup;
+			children = (
+				42DDBC4C1EF4C6BD0089874C /* Lap.swift */,
+				42DDBC4D1EF4C6BD0089874C /* SysDefines.swift */,
+			);
+			name = "Common in Project";
+			sourceTree = "<group>";
+		};
 		A2BAD55C1E515E210003FE1C = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +176,7 @@
 				4270E05C1EE6BFDE0000C357 /* Demo2.gif */,
 				421117C51EE8C950009DD28E /* Podfile */,
 				A2BAD5A11E515E4C0003FE1C /* Share module */,
+				42DDBC4B1EF4C6A70089874C /* Common in Project */,
 				A2BAD5671E515E210003FE1C /* WatchRealmSync */,
 				A2BAD57F1E515E3E0003FE1C /* WatchRealmSyncWatchApp */,
 				A2BAD58E1E515E3F0003FE1C /* WatchRealmSyncWatchApp Extension */,
@@ -223,10 +236,9 @@
 			children = (
 				A2BAD5C21E5163460003FE1C /* Common.swift */,
 				42883D501E52857900EC4EE3 /* SupportLibs.swift */,
-				A2BAD5C51E5163460003FE1C /* Lap.swift */,
-				A2BAD5C91E5163460003FE1C /* SysDefines.swift */,
 				A2BAD5CA1E5163460003FE1C /* WatchIPhoneConnect.swift */,
 				4285285A1EE2839F003F45B4 /* WatchRealmSync-Bridging-Header.h */,
+				42DDBC551EF4C83A0089874C /* LapShare.swift */,
 			);
 			name = "Share module";
 			sourceTree = "<group>";
@@ -516,11 +528,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2BAD5D31E5163460003FE1C /* Lap.swift in Sources */,
+				42DDBC501EF4C6BD0089874C /* SysDefines.swift in Sources */,
+				42DDBC561EF4C83A0089874C /* LapShare.swift in Sources */,
 				424754FB1E54DC11008CAD9C /* Common.swift in Sources */,
 				42D05FB21E5175B7007754D8 /* ViewController.swift in Sources */,
 				424754F91E54D95B008CAD9C /* WatchIPhoneConnect.swift in Sources */,
-				A2BAD5D91E5163460003FE1C /* SysDefines.swift in Sources */,
+				42DDBC4E1EF4C6BD0089874C /* Lap.swift in Sources */,
 				A2BAD5691E515E210003FE1C /* AppDelegate.swift in Sources */,
 				42883D511E52857900EC4EE3 /* SupportLibs.swift in Sources */,
 			);
@@ -530,14 +543,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2BAD5D41E5163460003FE1C /* Lap.swift in Sources */,
+				42DDBC511EF4C6BD0089874C /* SysDefines.swift in Sources */,
 				A2BAD5BF1E5162130003FE1C /* MasterTableRowController.swift in Sources */,
 				424E64491E5620FC00E44B4B /* ExtensionDelegate.swift in Sources */,
 				424754FA1E54D95C008CAD9C /* WatchIPhoneConnect.swift in Sources */,
 				42883D521E52857900EC4EE3 /* SupportLibs.swift in Sources */,
+				42DDBC571EF4C83A0089874C /* LapShare.swift in Sources */,
 				424754FC1E54DC12008CAD9C /* Common.swift in Sources */,
-				A2BAD5DA1E5163460003FE1C /* SysDefines.swift in Sources */,
 				A2BAD5901E515E3F0003FE1C /* InterfaceController.swift in Sources */,
+				42DDBC4F1EF4C6BD0089874C /* Lap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

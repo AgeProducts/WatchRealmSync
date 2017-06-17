@@ -3,20 +3,28 @@ Implementation example of synchronizing Realm DB between watchOS and iOS.
 Since it has stabilized, I will post the second version.  
 Please see Demo2.gif.
 
-## Features (goals)
+## Features
 * Realize DB sync using simple Realm programming.
 * By changing the template, you can use it generally.
-* It is not necessary to be aware of the synchronization mechanism whenever possible.
+* It is not necessary to be aware of the sync mechanism whenever possible.
 * Offline correspondence.
 
-## No good
-* Flat and single, Realm DB can be sync.
-* Very slow (watchOS table update + digest function).
+#### No good
+* Only flat and single, Realm DB can be sync.
+* "List" type can not be transferred. Attention required for "Int" type.
+* Slow (watchOS table update and digest/hash function).
 * Synchronization may be impossible (when transfer file can not be read). This will force sync.
-* In case of UI high load (Watch side), occasionally ABEND with "exit 0".
-* I am using a hard code (e.g. Lap.self).
+* In case of UI high load (watchOS side), occasionally ABEND with "exit 0".
+* In some cases, I'm using a hard code (e.g. "Lap.self").
 
 For the above reasons, this app is "sample".
+
+#### To Do
+* "WatchIPhoneConnect" observer patternization.
+* WatchOS side background processing.
+* IOS background launch.
+* Error countermeasure (retry and timeout).
+* Confirm the boot procedure.
 
 ## Demo project
 

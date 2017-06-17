@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         Observable.changeset(from: lapsAll)
             .subscribe(onNext: { [weak self] results, changes in
                 guard let wself = self else { return }
-                let count = "\(wself.laps.count)/\(wself.lapsSelect.count)/\(wself.lapsAll.count)"
+                let count = "\(wself.lapsSelect.count)/\(wself.laps.count)/\(wself.lapsAll.count)"
                 wself.numberButton.setTitle(count, for: .normal)
             })
             .addDisposableTo(bag)
@@ -130,10 +130,7 @@ class ViewController: UIViewController {
             })
             .addDisposableTo(bag)
         
-        /* init Sync All */
-        if SYNC_BOOT == true {
-            inquireSendALL()
-        }
+        inquireSendALL()
     }
     
     deinit {

@@ -204,6 +204,40 @@ public class FileHelper {
         }
         return imageData
     }
+    
+    static func writeFileWithData(path: String, data: Data) -> Bool {
+        if FileManager.default.createFile(atPath: path, contents: data, attributes: nil) == true {
+            // print ("File successful creation: \(path)")
+            return true
+        } else {
+            print ("File already exist: \(path)")
+            return false
+        }
+    }
+    
+    static func directorContents(atPath: String) -> [String] {
+        var contents: [String] = []
+        var isDir: ObjCBool = true
+        if FileManager.default.fileExists(atPath: atPath, isDirectory: &isDir) {
+            do {
+                contents = try FileManager.default.contentsOfDirectory(atPath: atPath)
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+        }
+        return contents
+    }
+    
+    static func isElapsedFileModificationDate(path: String, elapsedTime: TimeInterval) throws -> Bool {
+        if !fileExists(path: path) {
+            return false
+        }
+        let attributes = try FileManager.default.attributesOfItem(atPath: path) as NSDictionary
+        guard let date = attributes.fileModificationDate() else {
+            return false
+        }
+        return elapsedTime < NSDate().timeIntervalSince(date)
+    }
 }
 
 
