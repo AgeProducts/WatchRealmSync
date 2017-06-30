@@ -29,9 +29,9 @@ For the above reasons, this app is "sample".
 ## Demo project
 
 #### Requirements and development env
-* Xcode 8.3.3
-* iOS 10.3
-* watchOS 3.2
+* Xcode 9.0 beta
+* iOS 10.3 or later
+* watchOS 3.2 or later
 
 #### Make
 1. $ cd WatchRealmSync-master

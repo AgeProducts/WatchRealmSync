@@ -78,17 +78,15 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
         let realm = try! Realm()
         let laps = realm.objects(Lap.self)
         
-        notificationToken = laps.addNotificationBlock { [weak self] (changes: RealmCollectionChange) in
-            guard let wself = self else { NSLog("guard error"); return }
-            wself.lockQueue.sync { [weak wself] in
-                guard let wself2 = wself else { NSLog("guard error"); return }
+        notificationToken = laps.addNotificationBlock { (changes: RealmCollectionChange) in
+            self.lockQueue.sync {
                 
                 let realm = try! Realm()
                 let laps = realm.objects(Lap.self)
                 
                 switch changes {
                 case .initial:
-                    wself2.currentItemTalbe = laps.map { $0.identifier }
+                    self.currentItemTalbe = laps.map { $0.identifier }
                     
                 case .update( _, let deletions, let insertions, let modifications):
 //                    NSLog("Comon deleted: \(deletions) : \(deletions.count), inserted: \(insertions) : \(insertions.count), updated: \(modifications) : \(modifications.count)")
@@ -113,7 +111,7 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                         }
                         if inWriteTransaction == false {
                             do {
-                                try laps.realm!.commitWrite(withoutNotifying: wself2.realmTokens)
+                                try laps.realm!.commitWrite(withoutNotifying: self.realmTokens)
                             }
                             catch let error as NSError {
                                 NSLog("Error - \(error.localizedDescription)")
@@ -121,7 +119,7 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                             }
                         }
                         if updateItems.isEmpty == false {
-                            wself2.pushUpdates(updateIds:updateItems)
+                            self.pushUpdates(updateIds:updateItems)
                         }
                     }
                     if modifications.isEmpty == false {
@@ -141,7 +139,7 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                         }
                         if inWriteTransaction == false {
                             do {
-                                try laps.realm!.commitWrite(withoutNotifying: wself2.realmTokens)
+                                try laps.realm!.commitWrite(withoutNotifying: self.realmTokens)
                             }
                             catch let error as NSError {
                                 NSLog("Error - \(error.localizedDescription)")
@@ -149,20 +147,20 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                             }
                         }
                         if updateItems.isEmpty == false {
-                            wself2.pushUpdates(updateIds: updateItems)
+                            self.pushUpdates(updateIds: updateItems)
                         }
                     }
                     let newIdArray = laps.map{ $0.identifier } as [String]
                     var deleteIDs = [String]()
-                    wself2.currentItemTalbe.forEach { element in
+                    self.currentItemTalbe.forEach { element in
                         if newIdArray.index(of: element) == nil {
                             deleteIDs.append(element)
                         }
                     }
                     if deleteIDs.isEmpty == false {
-                        wself2.pushDeletes(deletedIds: deleteIDs)
+                        self.pushDeletes(deletedIds: deleteIDs)
                     }
-                    wself2.currentItemTalbe = laps.map{ $0.identifier }
+                    self.currentItemTalbe = laps.map{ $0.identifier }
                     
                 case .error(let error):
                     assertionFailure("RealmNotificationBlock: \(error)")
@@ -339,21 +337,20 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
         if workItem != nil {        // Cancel previous acts
             workItem?.cancel()
         }
-        workItem = DispatchWorkItem() { [weak self] in
-            guard let wself = self else { NSLog("guard error"); return }
-            let transRealm = wself.transRealm()!
+        workItem = DispatchWorkItem() {
+            let transRealm = self.transRealm()!
             let transItems = transRealm.objects(Lap.self)
             if transItems.isEmpty == true {
                 NSLog("No updated items. Sleep until changed. Zzzz...")
                 return
             }
             
-            if wself.WatchConnectInstance.transferFileHasContentPending() == true {
+            if self.WatchConnectInstance.transferFileHasContentPending() == true {
                 NSLog("Previous TransferFile is not over. Short sleep. Zzzz...")
                 return
             }
             let deleteTransItemIDs = transItems.map { $0.identifier } as [String]
-            wself.transactionCleanFile(fileName:TMP_REALM_FILE)
+            self.transactionCleanFile(fileName:TMP_REALM_FILE)
             let tmpRealmPath = FileHelper.temporaryDirectoryWithFileName(fileName:  TMP_REALM_FILE + UUID().uuidString)
             do {
                 try transRealm.writeCopy(toFile: URL(fileURLWithPath: tmpRealmPath))
@@ -362,7 +359,7 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                 NSLog("Error - \(error.localizedDescription)")
                 return
             }
-            wself.WatchConnectInstance.transferFile(URL(fileURLWithPath: tmpRealmPath), command: "sendTransFile$$")
+            self.WatchConnectInstance.transferFile(URL(fileURLWithPath: tmpRealmPath), command: "sendTransFile$$")
             let predicate = NSPredicate(format: "identifier IN %@", deleteTransItemIDs)
             let deleteTransItems = transRealm.objects(Lap.self).filter(predicate)
             if deleteTransItems.isEmpty == false {
@@ -377,17 +374,15 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                 }
                 transRealm.invalidate()
             }
-            wself.workItem = nil
+            self.workItem = nil
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + UPDATE_DELAY_TIME, execute: workItem!)
     }
     
     /* receive transaction */
     func receiveTransFile(file: WCSessionFile) {
-        self.lockQueue2.sync {  [weak self] _ in
-            guard let wself = self else { NSLog("guard error"); return }
-            dispatch_async_main {   [weak wself] _ in
-                guard let wself2 = wself else { NSLog("guard error"); return }
+        self.lockQueue2.sync {
+            dispatch_async_main {
                 let fileUrl:URL = file.fileURL
                 if FileHelper.fileExists(path: fileUrl.path) == false {
                     NSLog("Received file not found. URL error \(fileUrl.path)")
@@ -420,13 +415,13 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                                 if recievedItem.modifyDate >= item.modifyDate {             /* deleted item */
                                     realm.delete(item)
                                 } else if recievedItem.modifyDate < item.modifyDate {
-                                    wself2.pushUpdates(updateIds:[item.identifier])
+                                    self.pushUpdates(updateIds:[item.identifier])
                                 }
                             } else {
                                 if recievedItem.modifyDate > item.modifyDate {              /* normal item */
                                     lapItemCopy(from: recievedItem, to: item)
                                 } else if recievedItem.modifyDate < item.modifyDate {
-                                    wself2.pushUpdates(updateIds:[item.identifier])
+                                    self.pushUpdates(updateIds:[item.identifier])
                                 } else {
                                     if lapItemHashNumberComp(first: recievedItem, second: item) == false {
                                         /*
@@ -437,7 +432,7 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                                         // assertionFailure("DEBUG!!! Same modtime but different!")
                                         NSLog("DEBUG!!! Same modtime but different. recieve:\(recievedItem), exist:\(item) iOS:\(iOS)")
                                         if iOS == true {
-                                            wself2.pushUpdates(updateIds:[item.identifier])
+                                            self.pushUpdates(updateIds:[item.identifier])
                                         } else {
                                             lapItemCopy(from: recievedItem, to: item)
                                         }
@@ -461,7 +456,7 @@ class Common : NSObject, WatchIPhoneConnectDelegate {
                     }
                 }
                 do {
-                    try laps.realm!.commitWrite(withoutNotifying: [wself2.notificationToken!])
+                    try laps.realm!.commitWrite(withoutNotifying: [self.notificationToken!])
                 }
                 catch let error as NSError {
                     NSLog("Error - \(error.localizedDescription)")
